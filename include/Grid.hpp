@@ -5,20 +5,20 @@
 
 class Grid{
 	public:
-		Grid(const int width=15, const int height=15);
+		Grid(const COORDTYPE width=15, const COORDTYPE height=15);
 
-		int getWidth() const;
-		int getHeight() const;
-		std::pair<int, int> getSize() const;
-		int getIndex(const int x, const int y) const;
-		char getCell(const int x, const int y) const;
+		COORDTYPE getWidth() const;
+		COORDTYPE getHeight() const;
+		std::pair<COORDTYPE, COORDTYPE> getSize() const;
+		int getIndex(const COORDTYPE x, const COORDTYPE y) const;
+		char getCell(const COORDTYPE x, const COORDTYPE y) const;
 
-		void setCell(const int x, const int y, char value);
+		void setCell(const COORDTYPE x, const COORDTYPE y, char value);
 
 		void resetGrid();
 
 	private:
-		int width;
-		int height;
+		COORDTYPE width;
+		COORDTYPE height;
 		std::vector<char> cells;
 };

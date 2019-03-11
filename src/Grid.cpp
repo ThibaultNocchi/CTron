@@ -1,33 +1,33 @@
 #include "Grid.hpp"
 
-Grid::Grid(const int width, const int height) {
+Grid::Grid(const COORDTYPE width, const COORDTYPE height) {
     this->width = width;
     this->height = height;
     this->cells.resize(this->getWidth()*this->getHeight());
     this->resetGrid();
 }
 
-int Grid::getWidth() const{
+COORDTYPE Grid::getWidth() const{
     return this->width;
 }
 
-int Grid::getHeight() const{
+COORDTYPE Grid::getHeight() const{
     return this->height;
 }
 
-std::pair<int, int> Grid::getSize() const{
+std::pair<COORDTYPE, COORDTYPE> Grid::getSize() const{
     return std::pair<int, int>(this->width, this->height);
 }
 
-int Grid::getIndex(const int x, const int y) const{
+int Grid::getIndex(const COORDTYPE x, const COORDTYPE y) const{
     return x*this->getWidth() + this->getHeight();
 }
 
-char Grid::getCell(const int x, const int y) const{
+char Grid::getCell(const COORDTYPE x, const COORDTYPE y) const{
     return this->cells[this->getIndex(x, y)];
 }
 
-void Grid::setCell(const int x, const int y, char value){
+void Grid::setCell(const COORDTYPE x, const COORDTYPE y, char value){
     this->cells[this->getIndex(x, y)] = value;
 }
 

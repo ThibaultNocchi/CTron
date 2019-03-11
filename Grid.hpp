@@ -1,3 +1,5 @@
+#pragma once
+
 class Grid{
 	public:
 		Grid(int width=15, int height=15);

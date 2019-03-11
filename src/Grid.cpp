@@ -16,7 +16,7 @@ COORDTYPE Grid::getHeight() const{
 }
 
 std::pair<COORDTYPE, COORDTYPE> Grid::getSize() const{
-    return std::pair<int, int>(this->width, this->height);
+    return std::pair<COORDTYPE, COORDTYPE>(this->width, this->height);
 }
 
 int Grid::getIndex(const COORDTYPE x, const COORDTYPE y) const{
@@ -25,6 +25,15 @@ int Grid::getIndex(const COORDTYPE x, const COORDTYPE y) const{
 
 char Grid::getCell(const COORDTYPE x, const COORDTYPE y) const{
     return this->cells[this->getIndex(x, y)];
+}
+
+std::pair<COORDTYPE, COORDTYPE> Grid::getRandomEmptyCell() const{
+    COORDTYPE x, y;
+    do{
+        x = rand() % this->getWidth();
+        y = rand() % this->getHeight();
+    }while(this->getCell(x, y) != 0);
+    return std::pair<COORDTYPE, COORDTYPE>(x, y);
 }
 
 void Grid::setCell(const COORDTYPE x, const COORDTYPE y, char value){

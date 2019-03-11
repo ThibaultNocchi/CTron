@@ -21,10 +21,11 @@ std::pair<COORDTYPE, COORDTYPE> Grid::getSize() const{
 
 int Grid::getIndex(const COORDTYPE x, const COORDTYPE y) const{
     return x*this->getWidth() + this->getHeight();
+    /* Utiliser directement l'attribut plutôt que la fonction get ne serait il pas plus efficace ? */
 }
 
-char Grid::getCell(const COORDTYPE x, const COORDTYPE y) const{
-    return this->cells[this->getIndex(x, y)];
+State Grid::getCell(const COORDTYPE x, const COORDTYPE y) const{
+    return this->cells.at(this->getIndex(x, y));
 }
 
 std::pair<COORDTYPE, COORDTYPE> Grid::getRandomEmptyCell() const{
@@ -37,7 +38,7 @@ std::pair<COORDTYPE, COORDTYPE> Grid::getRandomEmptyCell() const{
 }
 
 void Grid::setCell(const COORDTYPE x, const COORDTYPE y, char value){
-    this->cells[this->getIndex(x, y)] = value;
+    this->cells.at(this->getIndex(x, y)) = value;
 }
 
 void Grid::resetGrid(){
@@ -46,4 +47,10 @@ void Grid::resetGrid(){
             this->setCell(x, y, 0);
         }
     }
+    /*
+     * PROPOSITION :
+     * for (auto it = cells.begin(); it != cells.end(); ++it){
+     * 	*it = 0;
+     * }
+     */
 }

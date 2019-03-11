@@ -6,7 +6,8 @@
 class Snake{
 	public:
 		Snake(const int length=5);
-		void move(int direction);
+		void move(Direction direction);
+		/* TODO Fonction move à renommer pour éviter la confusion avec celle de Grid imho */
 	private:
 		int baseLength;
 		Direction dir;

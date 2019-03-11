@@ -12,7 +12,7 @@ class Grid{
 		COORDTYPE getHeight() const;
 		std::pair<COORDTYPE, COORDTYPE> getSize() const;
 		int getIndex(const COORDTYPE x, const COORDTYPE y) const;
-		char getCell(const COORDTYPE x, const COORDTYPE y) const;
+		State getCell(const COORDTYPE x, const COORDTYPE y) const;
 		std::pair<COORDTYPE, COORDTYPE> getRandomEmptyCell() const;
 
 		void setCell(const COORDTYPE x, const COORDTYPE y, char value);
@@ -22,5 +22,9 @@ class Grid{
 	private:
 		COORDTYPE width;
 		COORDTYPE height;
-		std::vector<char> cells;
+		std::vector<State> cells;
+};
+
+enum State {
+	EMPTY, WALL, SNAKE
 };

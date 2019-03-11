@@ -5,9 +5,11 @@
 
 class Snake{
 	public:
-		Snake(int length=5);
+		Snake(const int length=5);
 		void move(int direction);
 	private:
+		int baseLength;
+		Direction dir;
 		std::queue<std::pair<COORDTYPE, COORDTYPE>> body;
 };
 

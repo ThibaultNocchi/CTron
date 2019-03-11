@@ -2,6 +2,6 @@
 
 #define COORDTYPE char
 
-enum Directions {
+enum Direction {
 	UP, DOWN, LEFT, RIGHT
 };

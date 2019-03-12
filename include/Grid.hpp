@@ -3,10 +3,16 @@
 #include <ctime>
 #include <cstdlib>
 #include "Definitions.hpp"
+#include "Snake.hpp"
 
 class Grid{
 	public:
 		Grid(const COORDTYPE width=DEFAULTWIDTH, const COORDTYPE height=DEFAULTHEIGHT);
+
+		void addSnake(const int length=DEFAULTSNAKE);
+		void moveSnakes();
+		void resetGrid();
+		void resetSnakes();
 
 		COORDTYPE getWidth() const;
 		COORDTYPE getHeight() const;
@@ -17,10 +23,9 @@ class Grid{
 
 		void setCell(const COORDTYPE x, const COORDTYPE y, State value);
 
-		void resetGrid();
-
 	private:
 		COORDTYPE width;
 		COORDTYPE height;
 		std::vector<State> cells;
+		std::vector<Snake> snakes;
 };

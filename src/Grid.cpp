@@ -8,6 +8,74 @@ Grid::Grid(const COORDTYPE width, const COORDTYPE height) {
     std::srand(std::time(nullptr));
 }
 
+void Grid::addSnake(const int length){
+    auto newPosition = this->getRandomEmptyCell();
+    auto newSnake = Snake(newPosition.first, newPosition.second, length);
+    this->snakes.push_back(newSnake);
+}
+
+// 0,0 is considered to be bottom left.
+void Grid::moveSnakes(){
+
+    for(auto snake : this->snakes){
+        
+        auto head = snake.getHead();
+        switch (snake.getDirection()){
+            case UP:
+                if(head.second == this->getHeight() - 1){
+                    head.second = 0;
+                }else{
+                    head.second += 1;
+                }
+                break;
+            
+            case DOWN:
+                if(head.second == 0){
+                    head.second = this->getHeight() - 1;
+                }else{
+                    head.second -= 1;
+                }
+                break;
+
+            case LEFT:
+                if(head.first == 0){
+                    head.first = this->getWidth() - 1;
+                }else{
+                    head.first -= 1;
+                }
+                break;
+
+            case RIGHT:
+                if(head.first == this->getWidth() - 1){
+                    head.first = 0;
+                }else{
+                    head.first += 1;
+                }
+                break;
+        
+            default:
+                break;
+        }
+
+        snake.moveBody(head);
+
+    }
+    
+}
+
+void Grid::resetGrid(){
+    for(int x = 0; x < this->getWidth(); ++x){
+        for(int y = 0; y < this->getHeight(); ++y){
+            this->setCell(x, y, EMPTY);
+        }
+    }
+    this->resetSnakes();
+}
+
+void Grid::resetSnakes(){
+    this->snakes.clear();
+}
+
 COORDTYPE Grid::getWidth() const{
     return this->width;
 }
@@ -42,12 +110,4 @@ std::pair<COORDTYPE, COORDTYPE> Grid::getRandomEmptyCell() const{
 void Grid::setCell(const COORDTYPE x, const COORDTYPE y, State value){
     // this->cells.at(this->getIndex(x, y)) = value;
     this->cells[this->getIndex(x, y)] = value;
-}
-
-void Grid::resetGrid(){
-    for(int x = 0; x < this->getWidth(); ++x){
-        for(int y = 0; y < this->getHeight(); ++y){
-            this->setCell(x, y, EMPTY);
-        }
-    }
 }

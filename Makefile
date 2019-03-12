@@ -12,14 +12,15 @@ LIBS =
 
 SRCFILES = $(wildcard $(SRCDIR)/*.cpp)
 OBJFILES = $(patsubst $(SRCDIR)/%.cpp,$(ODIR)/%.o,$(SRCFILES))
+MAINFILE = main
 
 EXEC_NAME = CTron
 
 all: $(BINDIR)/$(EXEC_NAME)
 
-%Test: $(ODIR)/%Test.o
+%Test: $(ODIR)/%Test.o $(OBJFILES)
 	mkdir -p $(BINDIR)/$(TESTDIR)
-	$(CC) -o $(BINDIR)/$(TESTDIR)/$@ $^ $(CFLAGS) $(LIBS)
+	$(CC) -o $(BINDIR)/$(TESTDIR)/$@ $(filter-out $(ODIR)/$(MAINFILE).o, $^) $(CFLAGS) $(LIBS)
 	@echo "Start of test...\n"
 	@$(BINDIR)/$(TESTDIR)/./$@
 	@echo "\nEnd of test."

@@ -7,12 +7,14 @@ class Snake{
 		Snake(const COORDTYPE x, const COORDTYPE y, const int length=5);
 
 		void moveBody(const COORDTYPE x, const COORDTYPE y);
+		void moveBody(const std::pair<COORDTYPE, COORDTYPE> newHead);
 
 		int getBaseLength() const;
 		int getAdultLength() const;
 		int getCurrentLength() const;
 		Direction getDirection() const;
 		std::queue<std::pair<COORDTYPE, COORDTYPE>> getBody() const;
+		std::pair<COORDTYPE, COORDTYPE> getHead() const;
 
 		void setDirection(const Direction direction);
 

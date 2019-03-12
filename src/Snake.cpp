@@ -14,6 +14,13 @@ void Snake::moveBody(const COORDTYPE x, const COORDTYPE y){
 	this->body.push(std::pair<COORDTYPE, COORDTYPE>(x, y));
 }
 
+void Snake::moveBody(const std::pair<COORDTYPE, COORDTYPE> newHead){
+    if(this->getCurrentLength() == this->getAdultLength()){
+        this->body.pop();
+    }
+    this->body.push(newHead);
+}
+
 int Snake::getBaseLength() const{
     return this->baseLength;
 }
@@ -32,6 +39,10 @@ Direction Snake::getDirection() const{
 
 std::queue<std::pair<COORDTYPE, COORDTYPE>> Snake::getBody() const{
     return this->body;
+}
+
+std::pair<COORDTYPE, COORDTYPE> Snake::getHead() const{
+    return this->body.back();
 }
 
 void Snake::setDirection(const Direction direction){

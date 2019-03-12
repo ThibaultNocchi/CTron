@@ -2,7 +2,13 @@
 #include <cassert>
 #include "Snake.hpp"
 
+void SnakeTest();
+
 int main(int argc, char *argv[]){
-    std::cout << "Hello world" << std::endl;
+    SnakeTest();
     return EXIT_SUCCESS;
+}
+
+void SnakeTest(){
+    
 }

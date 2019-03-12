@@ -5,8 +5,14 @@
 class Snake{
 	public:
 		Snake(const int length=5);
-		void changeDirection(Direction direction);
-		void updateBody(COORDTYPE x, COORDTYPE y);
+
+		void moveBody(COORDTYPE x, COORDTYPE y);
+
+		int getBaseLength() const;
+		Direction getDirection() const;
+
+		void setDirection(Direction direction);
+
 	private:
 		int baseLength;
 		Direction dir;

@@ -37,14 +37,14 @@ std::pair<COORDTYPE, COORDTYPE> Grid::getRandomEmptyCell() const{
     return std::pair<COORDTYPE, COORDTYPE>(x, y);
 }
 
-void Grid::setCell(const COORDTYPE x, const COORDTYPE y, char value){
+void Grid::setCell(const COORDTYPE x, const COORDTYPE y, State value){
     this->cells.at(this->getIndex(x, y)) = value;
 }
 
 void Grid::resetGrid(){
     for(int x = 0; x < this->getWidth(); ++x){
         for(int y = 0; y < this->getHeight(); ++y){
-            this->setCell(x, y, 0);
+            this->setCell(x, y, EMPTY);
         }
     }
     /*

@@ -15,7 +15,7 @@ class Grid{
 		State getCell(const COORDTYPE x, const COORDTYPE y) const;
 		std::pair<COORDTYPE, COORDTYPE> getRandomEmptyCell() const;
 
-		void setCell(const COORDTYPE x, const COORDTYPE y, char value);
+		void setCell(const COORDTYPE x, const COORDTYPE y, State value);
 
 		void resetGrid();
 

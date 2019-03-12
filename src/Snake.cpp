@@ -2,6 +2,10 @@
 
 Snake::Snake(const int length){
 	this->baseLength = length;
+    this->dir = UP;
+    for(int i = 0; i < this->getBaseLength(); ++i){
+        this->body.push(std::pair<COORDTYPE, COORDTYPE>(-1, -1));
+    }
 }
 
 void Snake::moveBody(COORDTYPE x, COORDTYPE y){

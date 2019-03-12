@@ -1,4 +1,4 @@
-#include "../include/Grid.hpp"
+#include "Grid.hpp"
 
 Grid::Grid(const COORDTYPE width, const COORDTYPE height) {
     this->width = width;

@@ -11,6 +11,6 @@ class Snake{
 	private:
 		int baseLength;
 		Direction dir;
-		std::queue<std::pair<COORDTYPE, COORDTYPE>> body;
+		std::queue<std::pair<COORDTYPE, COORDTYPE> > body;
 };
 

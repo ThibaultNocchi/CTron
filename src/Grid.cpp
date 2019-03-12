@@ -20,7 +20,7 @@ std::pair<COORDTYPE, COORDTYPE> Grid::getSize() const{
 }
 
 int Grid::getIndex(const COORDTYPE x, const COORDTYPE y) const{
-    return x*this->getWidth() + this->getHeight();
+    return x*this->getWidth() + y;
     /* Utiliser directement l'attribut plutôt que la fonction get ne serait il pas plus efficace ? */
 }
 

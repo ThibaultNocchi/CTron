@@ -5,6 +5,7 @@ Grid::Grid(const COORDTYPE width, const COORDTYPE height) {
     this->height = height;
     this->cells.resize(this->getWidth()*this->getHeight());
     this->resetGrid();
+    std::srand(std::time(nullptr));
 }
 
 COORDTYPE Grid::getWidth() const{
@@ -32,8 +33,8 @@ State Grid::getCell(const COORDTYPE x, const COORDTYPE y) const{
 std::pair<COORDTYPE, COORDTYPE> Grid::getRandomEmptyCell() const{
     COORDTYPE x, y;
     do{
-        x = rand() % this->getWidth();
-        y = rand() % this->getHeight();
+        x = std::rand() % this->getWidth();
+        y = std::rand() % this->getHeight();
     }while(this->getCell(x, y) != 0);
     return std::pair<COORDTYPE, COORDTYPE>(x, y);
 }

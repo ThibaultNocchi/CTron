@@ -1,6 +1,5 @@
 #pragma once
 #include <queue>
-#include <iostream>
 #include "Definitions.hpp"
 
 class Snake{

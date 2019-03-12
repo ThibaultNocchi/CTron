@@ -6,11 +6,11 @@
 class Snake{
 	public:
 		Snake(const int length=5);
-		void move(Direction direction);
-		/* TODO Fonction move à renommer pour éviter la confusion avec celle de Grid imho */
+		void changeDirection(Direction direction);
+		void updateBody(COORDTYPE x, COORDTYPE y);
 	private:
 		int baseLength;
 		Direction dir;
-		std::queue<std::pair<COORDTYPE, COORDTYPE> > body;
+		std::queue<std::pair<COORDTYPE, COORDTYPE>> body;
 };
 

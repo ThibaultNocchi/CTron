@@ -24,7 +24,3 @@ class Grid{
 		COORDTYPE height;
 		std::vector<State> cells;
 };
-
-enum State {
-	EMPTY, WALL, SNAKE
-};

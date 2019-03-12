@@ -5,3 +5,7 @@
 enum Direction {
 	UP, DOWN, LEFT, RIGHT
 };
+
+enum State {
+	EMPTY, WALL, SNAKE
+};

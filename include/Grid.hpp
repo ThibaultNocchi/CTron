@@ -6,7 +6,7 @@
 
 class Grid{
 	public:
-		Grid(const COORDTYPE width=15, const COORDTYPE height=15);
+		Grid(const COORDTYPE width=DEFAULTWIDTH, const COORDTYPE height=DEFAULTHEIGHT);
 
 		COORDTYPE getWidth() const;
 		COORDTYPE getHeight() const;

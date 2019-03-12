@@ -1,15 +1,30 @@
 CC = g++
-CFLAGS = -Wall
+CFLAGS = -Wall -I$(IDIR)
+
+IDIR = include
+LDIR = lib
+ODIR = obj
+SRCDIR = src
+TESTDIR = tests
+BINDIR = bin
+
+LIBS =
+
+SRCFILES = $(wildcard $(SRCDIR)/*.cpp)
+OBJFILES = $(patsubst $(SRCDIR)/%.cpp,$(ODIR)/%.o,$(SRCFILES))
+
 EXEC_NAME = CTron
 
-OBJ_FILES = Snake.o main.o Grid.o
+all: $(BINDIR)/$(EXEC_NAME)
 
-all : $(EXEC_NAME)
+$(BINDIR)/$(EXEC_NAME): $(OBJFILES)
+	mkdir -p $(BINDIR)
+	$(CC) -o $@ $^ $(CFLAGS) $(LIBS)
 
-clean : rm $(EXEC_NAME) $(OBJ_FILES)
+$(ODIR)/%.o: $(SRCDIR)/%.cpp
+	mkdir -p $(ODIR)
+	$(CC) -c -o $@ $< $(CFLAGS)
 
-$(EXEC_NAME) : $(OBJ_FILES)
-	$(CC) -o $(EXEC_NAME) $(OBJ_FILES)
-
-%.o: %.cpp
-	$(CC) $(CFLAGS) -o $@ -c $<
+.PHONY: clean
+clean:
+	rm -rf $(ODIR) $(BINDIR)

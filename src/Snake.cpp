@@ -10,5 +10,5 @@ void Snake::changeDirection(Direction direction){
 
 void Snake::updateBody(COORDTYPE x, COORDTYPE y){
 	this->body.pop();
-	this->body.pair(std::pair<COORDTYPE, COORDTYPE>(x, y));
+	this->body.push(std::pair<COORDTYPE, COORDTYPE>(x, y));
 };

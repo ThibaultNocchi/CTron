@@ -32,6 +32,8 @@ $(ODIR)/%Test.o: $(TESTDIR)/%Test.cpp
 	mkdir -p $(ODIR)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
+.PRECIOUS: $(ODIR)/%Test.o
+
 $(ODIR)/%.o: $(SRCDIR)/%.cpp
 	mkdir -p $(ODIR)
 	$(CC) -c -o $@ $< $(CFLAGS)

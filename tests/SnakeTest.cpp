@@ -50,3 +50,8 @@ void getBaseLengthTest(){
     TEST_INITSNAKE()
     assert(TEST_OBJ.getBaseLength() == TEST_LENGTH);
 }
+
+void getCurrentLength(){
+    TEST_INITSNAKE()
+    assert(TEST_OBJ.getCurrentLength() == 1);
+}

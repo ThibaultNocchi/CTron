@@ -21,6 +21,10 @@ Direction Snake::getDirection() const{
     return this->dir;
 }
 
+std::queue<std::pair<COORDTYPE, COORDTYPE>> Snake::getBody() const{
+    return this->body;
+}
+
 void Snake::setDirection(Direction direction){
 	this->dir = direction;
 }

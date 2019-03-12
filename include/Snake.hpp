@@ -10,6 +10,7 @@ class Snake{
 
 		int getBaseLength() const;
 		Direction getDirection() const;
+		std::queue<std::pair<COORDTYPE, COORDTYPE>> getBody() const;
 
 		void setDirection(Direction direction);
 

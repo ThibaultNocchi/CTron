@@ -17,9 +17,20 @@ EXEC_NAME = CTron
 
 all: $(BINDIR)/$(EXEC_NAME)
 
+%Test: $(ODIR)/%Test.o
+	mkdir -p $(BINDIR)/$(TESTDIR)
+	$(CC) -o $(BINDIR)/$(TESTDIR)/$@ $^ $(CFLAGS) $(LIBS)
+	@echo "Start of test...\n"
+	@$(BINDIR)/$(TESTDIR)/./$@
+	@echo "\nEnd of test."
+
 $(BINDIR)/$(EXEC_NAME): $(OBJFILES)
 	mkdir -p $(BINDIR)
 	$(CC) -o $@ $^ $(CFLAGS) $(LIBS)
+
+$(ODIR)/%Test.o: $(TESTDIR)/%Test.cpp
+	mkdir -p $(ODIR)
+	$(CC) -c -o $@ $< $(CFLAGS)
 
 $(ODIR)/%.o: $(SRCDIR)/%.cpp
 	mkdir -p $(ODIR)

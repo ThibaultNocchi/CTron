@@ -21,9 +21,9 @@ all: $(BINDIR)/$(EXEC_NAME)
 %Test: $(ODIR)/%Test.o $(OBJFILES)
 	mkdir -p $(BINDIR)/$(TESTDIR)
 	$(CC) -o $(BINDIR)/$(TESTDIR)/$@ $(filter-out $(ODIR)/$(MAINFILE).o, $^) $(CFLAGS) $(LIBS)
-	@echo "Start of test...\n"
+	@echo "Start of tests...\n"
 	@$(BINDIR)/$(TESTDIR)/./$@
-	@echo "\nEnd of test."
+	@echo "\nTests successful!"
 
 $(BINDIR)/$(EXEC_NAME): $(OBJFILES)
 	mkdir -p $(BINDIR)

@@ -54,11 +54,11 @@ std::deque<std::pair<COORDTYPE, COORDTYPE>> Snake::getBody() const{
 }
 
 std::pair<COORDTYPE, COORDTYPE> Snake::getHead() const{
-    return this->body.back();
+    return this->body.front();
 }
 
 std::pair<COORDTYPE, COORDTYPE> Snake::getTail() const{
-    return this->body.front();
+    return this->body.back();
 }
 
 void Snake::setDirection(const Direction direction){

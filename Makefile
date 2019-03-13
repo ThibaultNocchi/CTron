@@ -18,6 +18,9 @@ EXEC_NAME = CTron
 
 all: $(BINDIR)/$(EXEC_NAME)
 
+run: $(BINDIR)/$(EXEC_NAME)
+	@$(BINDIR)/./$(EXEC_NAME)
+
 %Test: $(ODIR)/%Test.o $(OBJFILES)
 	mkdir -p $(BINDIR)/$(TESTDIR)
 	$(CC) -o $(BINDIR)/$(TESTDIR)/$@ $(filter-out $(ODIR)/$(MAINFILE).o, $^) $(CFLAGS) $(LIBS)

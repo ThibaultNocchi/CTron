@@ -2,6 +2,7 @@
 #include <vector>
 #include <ctime>
 #include <cstdlib>
+#include <iostream>
 #include "Definitions.hpp"
 #include "Snake.hpp"
 
@@ -11,8 +12,11 @@ class Grid{
 
 		void addSnake(const int length=DEFAULTSNAKE);
 		void moveSnakes();
+		bool checkCollision(std::pair<COORDTYPE, COORDTYPE> head);
 		void resetGrid();
 		void resetSnakes();
+
+		void displayGridBasic();
 
 		COORDTYPE getWidth() const;
 		COORDTYPE getHeight() const;

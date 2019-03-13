@@ -12,44 +12,47 @@ void Grid::addSnake(const int length){
     auto newPosition = this->getRandomEmptyCell();
     auto newSnake = Snake(newPosition.first, newPosition.second, length);
     this->snakes.push_back(newSnake);
+    this->setCell(newPosition.first, newPosition.second, SNAKE);
 }
 
-// 0,0 is considered to be bottom left.
+// 0,0 is considered to be top left.
 void Grid::moveSnakes(){
 
-    for(auto snake : this->snakes){
+    for(unsigned int i = 0; i < this->snakes.size(); ++i){
         
-        auto head = snake.getHead();
-        switch (snake.getDirection()){
-            case UP:
-                if(head.second == this->getHeight() - 1){
-                    head.second = 0;
+        auto head = this->snakes[i].getHead();
+        auto tail = this->snakes[i].getTail();
+
+        switch (this->snakes[i].getDirection()){
+            case DOWN:
+                if(head.first == this->getHeight() - 1){
+                    head.first = 0;
                 }else{
-                    head.second += 1;
+                    head.first += 1;
                 }
                 break;
             
-            case DOWN:
-                if(head.second == 0){
-                    head.second = this->getHeight() - 1;
-                }else{
-                    head.second -= 1;
-                }
-                break;
-
-            case LEFT:
+            case UP:
                 if(head.first == 0){
-                    head.first = this->getWidth() - 1;
+                    head.first = this->getHeight() - 1;
                 }else{
                     head.first -= 1;
                 }
                 break;
 
-            case RIGHT:
-                if(head.first == this->getWidth() - 1){
-                    head.first = 0;
+            case LEFT:
+                if(head.second == 0){
+                    head.second = this->getWidth() - 1;
                 }else{
-                    head.first += 1;
+                    head.second -= 1;
+                }
+                break;
+
+            case RIGHT:
+                if(head.second == this->getWidth() - 1){
+                    head.second = 0;
+                }else{
+                    head.second += 1;
                 }
                 break;
         
@@ -57,10 +60,21 @@ void Grid::moveSnakes(){
                 break;
         }
 
-        snake.moveBody(head);
+        if(this->checkCollision(head)){
+        }else{
+            this->setCell(head.first, head.second, SNAKE);
+            if(this->snakes[i].moveBody(head)){
+                this->setCell(tail.first, tail.second, EMPTY);
+            }
+        }
 
     }
     
+}
+
+bool Grid::checkCollision(std::pair<COORDTYPE, COORDTYPE> head){
+    // TODO
+    return false;
 }
 
 void Grid::resetGrid(){
@@ -74,6 +88,37 @@ void Grid::resetGrid(){
 
 void Grid::resetSnakes(){
     this->snakes.clear();
+}
+
+void Grid::displayGridBasic(){
+    for(int y = 0; y < this->getWidth(); ++y){
+        std::cout << "-";
+    }
+    std::cout << std::endl;
+    for(int x = 0; x < this->getHeight(); ++x){
+        for(int y = 0; y < this->getWidth(); ++y){
+            switch (this->getCell(x,y)){
+                case EMPTY:
+                    std::cout << " ";
+                    break;
+
+                case SNAKE:
+                    std::cout << "O";
+                    break;
+
+                case WALL:
+                    std::cout << "#";
+            
+                default:
+                    break;
+            }
+        }
+        std::cout << std::endl;
+    }
+    for(int y = 0; y < this->getWidth(); ++y){
+        std::cout << "-";
+    }
+    std::cout << std::endl;
 }
 
 COORDTYPE Grid::getWidth() const{

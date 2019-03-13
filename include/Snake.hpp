@@ -1,20 +1,24 @@
 #pragma once
-#include <queue>
+#include <deque>
+#include <iostream>
 #include "Definitions.hpp"
 
 class Snake{
 	public:
 		Snake(const COORDTYPE x, const COORDTYPE y, const int length=5);
 
-		void moveBody(const COORDTYPE x, const COORDTYPE y);
-		void moveBody(const std::pair<COORDTYPE, COORDTYPE> newHead);
+		bool moveBody(const COORDTYPE x, const COORDTYPE y);
+		bool moveBody(const std::pair<COORDTYPE, COORDTYPE> newHead);
+
+		void displayBodyFromHeadToTail() const;
 
 		int getBaseLength() const;
 		int getAdultLength() const;
 		int getCurrentLength() const;
 		Direction getDirection() const;
-		std::queue<std::pair<COORDTYPE, COORDTYPE>> getBody() const;
+		std::deque<std::pair<COORDTYPE, COORDTYPE>> getBody() const;
 		std::pair<COORDTYPE, COORDTYPE> getHead() const;
+		std::pair<COORDTYPE, COORDTYPE> getTail() const;
 
 		void setDirection(const Direction direction);
 
@@ -22,6 +26,6 @@ class Snake{
 		int baseLength;
 		int adultLength;
 		Direction dir;
-		std::queue<std::pair<COORDTYPE, COORDTYPE>> body;
+		std::deque<std::pair<COORDTYPE, COORDTYPE>> body;
 };
 

@@ -7,18 +7,30 @@ Snake::Snake(const COORDTYPE x, const COORDTYPE y, const int length){
     this->moveBody(x, y);
 }
 
-void Snake::moveBody(const COORDTYPE x, const COORDTYPE y){
-    if(this->getCurrentLength() == this->getAdultLength()){
-	    this->body.pop();
+bool Snake::moveBody(const COORDTYPE x, const COORDTYPE y){
+	this->body.push_front(std::pair<COORDTYPE, COORDTYPE>(x, y));
+    if(this->getCurrentLength() > this->getAdultLength()){
+	    this->body.pop_back();
+        return true;
+    }else{
+        return false;
     }
-	this->body.push(std::pair<COORDTYPE, COORDTYPE>(x, y));
 }
 
-void Snake::moveBody(const std::pair<COORDTYPE, COORDTYPE> newHead){
-    if(this->getCurrentLength() == this->getAdultLength()){
-        this->body.pop();
+bool Snake::moveBody(const std::pair<COORDTYPE, COORDTYPE> newHead){
+    this->body.push_front(newHead);
+    if(this->getCurrentLength() > this->getAdultLength()){
+        this->body.pop_back();
+        return true;
+    }else{
+        return false;
     }
-    this->body.push(newHead);
+}
+
+void Snake::displayBodyFromHeadToTail() const{
+    for(auto part : this->getBody()){
+        std::cout << "{" << +(part.first) << ", " << +(part.second) << "} " << std::endl;
+    }
 }
 
 int Snake::getBaseLength() const{
@@ -37,12 +49,16 @@ Direction Snake::getDirection() const{
     return this->dir;
 }
 
-std::queue<std::pair<COORDTYPE, COORDTYPE>> Snake::getBody() const{
+std::deque<std::pair<COORDTYPE, COORDTYPE>> Snake::getBody() const{
     return this->body;
 }
 
 std::pair<COORDTYPE, COORDTYPE> Snake::getHead() const{
     return this->body.back();
+}
+
+std::pair<COORDTYPE, COORDTYPE> Snake::getTail() const{
+    return this->body.front();
 }
 
 void Snake::setDirection(const Direction direction){

@@ -36,14 +36,14 @@ void moveBodyTest(){
 
     assert(TEST_OBJ.getCurrentLength() == TEST_LENGTH);
     auto body = TEST_OBJ.getBody();
-    assert(body.back().first == x2 && body.back().second == y2);
-    assert(body.front().first == x && body.front().second == y);
+    assert(body.front().first == x2 && body.front().second == y2);
+    assert(body.back().first == x && body.back().second == y);
     
     TEST_OBJ.moveBody(x, y);
     body = TEST_OBJ.getBody();
     assert(TEST_OBJ.getCurrentLength() == TEST_LENGTH);
-    assert(body.back().first == x && body.back().second == y);
-    assert(body.front().first == x2 && body.front().second == y2);
+    assert(body.front().first == x && body.front().second == y);
+    assert(body.back().first == x2 && body.back().second == y2);
 }
 
 void getBaseLengthTest(){

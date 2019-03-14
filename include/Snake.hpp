@@ -7,8 +7,11 @@ class Snake{
 	public:
 		Snake(const COORDTYPE x, const COORDTYPE y, const int length=5);
 
-		bool moveBody(const COORDTYPE x, const COORDTYPE y);
-		bool moveBody(const std::pair<COORDTYPE, COORDTYPE> newHead);
+		// bool moveBody(const COORDTYPE x, const COORDTYPE y);
+		// bool moveBody(const std::pair<COORDTYPE, COORDTYPE> newHead);
+		void setNewHead();
+		void removeTail();
+		void emptySnake();
 
 		void displayBodyFromHeadToTail() const;
 
@@ -20,9 +23,12 @@ class Snake{
 		std::pair<COORDTYPE, COORDTYPE> getHead() const;
 		std::pair<COORDTYPE, COORDTYPE> getTail() const;
 		std::pair<COORDTYPE, COORDTYPE> getFutureHead() const;
+		bool getAlive() const;
 
 		void setDirection(const Direction direction);
 		void setFutureHead(const std::pair<COORDTYPE, COORDTYPE> head);
+		void setAlive(const bool state);
+		void setHead(const std::pair<COORDTYPE, COORDTYPE> head);
 
 	private:
 		int baseLength;
@@ -30,5 +36,6 @@ class Snake{
 		Direction dir;
 		std::deque<std::pair<COORDTYPE, COORDTYPE>> body;
 		std::pair<COORDTYPE, COORDTYPE> futureHead;
+		bool alive;
 };
 

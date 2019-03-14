@@ -13,6 +13,7 @@ class Grid{
 		void addSnake(const int length=DEFAULTSNAKE);
 		void moveSnakes();
 		void resetGrid();
+		void resetSnake(int index);
 		void resetSnakes();
 
 		void displayGridBasic();
@@ -23,6 +24,7 @@ class Grid{
 		int getIndex(const COORDTYPE x, const COORDTYPE y) const;
 		State getCell(const COORDTYPE x, const COORDTYPE y) const;
 		std::pair<COORDTYPE, COORDTYPE> getRandomEmptyCell() const;
+		std::vector<Snake> getSnakes();
 
 		void setCell(const COORDTYPE x, const COORDTYPE y, State value);
 

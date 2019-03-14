@@ -8,7 +8,7 @@ SRCDIR = src
 TESTDIR = tests
 BINDIR = bin
 
-LIBS =
+LIBS = -fopenmp
 
 SRCFILES = $(wildcard $(SRCDIR)/*.cpp)
 OBJFILES = $(patsubst $(SRCDIR)/%.cpp,$(ODIR)/%.o,$(SRCFILES))

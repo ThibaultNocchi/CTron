@@ -18,7 +18,7 @@ void Grid::addSnake(const int length){
 // 0,0 is considered to be top left.
 void Grid::moveSnakes(){
 
-    for(unsigned int i = 0; i < this->snakes.size(); ++i){
+    for(size_t i = 0; i < this->snakes.size(); ++i){
         
         auto head = this->snakes[i].getHead();
         auto tail = this->snakes[i].getTail();
@@ -91,12 +91,12 @@ void Grid::resetSnakes(){
 }
 
 void Grid::displayGridBasic(){
-    for(int y = 0; y < this->getWidth(); ++y){
+    for(COORDTYPE y = 0; y < this->getWidth(); ++y){
         std::cout << "-";
     }
     std::cout << std::endl;
-    for(int x = 0; x < this->getHeight(); ++x){
-        for(int y = 0; y < this->getWidth(); ++y){
+    for(COORDTYPE x = 0; x < this->getHeight(); ++x){
+        for(COORDTYPE y = 0; y < this->getWidth(); ++y){
             switch (this->getCell(x,y)){
                 case EMPTY:
                     std::cout << " ";
@@ -115,7 +115,7 @@ void Grid::displayGridBasic(){
         }
         std::cout << std::endl;
     }
-    for(int y = 0; y < this->getWidth(); ++y){
+    for(COORDTYPE y = 0; y < this->getWidth(); ++y){
         std::cout << "-";
     }
     std::cout << std::endl;

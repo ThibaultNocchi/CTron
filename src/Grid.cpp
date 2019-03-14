@@ -61,7 +61,6 @@ void Grid::moveSnakes(){
         }
 
         this->snakes[i].setFutureHead(head);
-        // std::cout << this->snakes[i].getCurrentLength() << std::endl;
         if(this->snakes[i].getCurrentLength() == this->snakes[i].getAdultLength()){
             auto tail = this->snakes[i].getTail();
             this->setCell(tail.first, tail.second, EMPTY);
@@ -95,7 +94,6 @@ void Grid::moveSnakes(){
             if(this->snakes[i].getAlive()){
                 this->snakes[i].setNewHead();
                 this->setCell(newHead.first, newHead.second, SNAKE);
-                // std::cout << +(newHead.first) << " " << +(newHead.second) << std::endl;
             }
         }
 
@@ -103,10 +101,11 @@ void Grid::moveSnakes(){
 
     // Respawning dead snakes
     for(size_t i = 0; i < this->snakes.size(); ++i){
-        // this->snakes[i].displayBodyFromHeadToTail();
         if(!this->snakes[i].getAlive()){
             this->snakes[i].setAlive(true);
-            this->snakes[i].setHead(this->getRandomEmptyCell());
+            auto newPos = this->getRandomEmptyCell();
+            this->snakes[i].setHead(newPos);
+            this->setCell(newPos.first, newPos.second, SNAKE);
         }
     }
     
@@ -195,7 +194,7 @@ std::pair<COORDTYPE, COORDTYPE> Grid::getRandomEmptyCell() const{
     return std::pair<COORDTYPE, COORDTYPE>(x, y);
 }
 
-std::vector<Snake> Grid::getSnakes(){
+std::vector<Snake>& Grid::getSnakes(){
     return this->snakes;
 }
 

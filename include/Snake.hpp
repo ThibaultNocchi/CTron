@@ -19,13 +19,16 @@ class Snake{
 		std::deque<std::pair<COORDTYPE, COORDTYPE>> getBody() const;
 		std::pair<COORDTYPE, COORDTYPE> getHead() const;
 		std::pair<COORDTYPE, COORDTYPE> getTail() const;
+		std::pair<COORDTYPE, COORDTYPE> getFutureHead() const;
 
 		void setDirection(const Direction direction);
+		void setFutureHead(const std::pair<COORDTYPE, COORDTYPE> head);
 
 	private:
 		int baseLength;
 		int adultLength;
 		Direction dir;
 		std::deque<std::pair<COORDTYPE, COORDTYPE>> body;
+		std::pair<COORDTYPE, COORDTYPE> futureHead;
 };
 

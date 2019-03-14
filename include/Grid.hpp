@@ -12,7 +12,6 @@ class Grid{
 
 		void addSnake(const int length=DEFAULTSNAKE);
 		void moveSnakes();
-		bool checkCollision(std::pair<COORDTYPE, COORDTYPE> head);
 		void resetGrid();
 		void resetSnakes();
 

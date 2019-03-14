@@ -61,6 +61,14 @@ std::pair<COORDTYPE, COORDTYPE> Snake::getTail() const{
     return this->body.back();
 }
 
+std::pair<COORDTYPE, COORDTYPE> Snake::getFutureHead() const{
+    return this->futureHead;
+}
+
 void Snake::setDirection(const Direction direction){
 	this->dir = direction;
+}
+
+void Snake::setFutureHead(const std::pair<COORDTYPE, COORDTYPE> head){
+    this->futureHead = head;
 }

@@ -21,7 +21,6 @@ void Grid::moveSnakes(){
     for(size_t i = 0; i < this->snakes.size(); ++i){
         
         auto head = this->snakes[i].getHead();
-        auto tail = this->snakes[i].getTail();
 
         switch (this->snakes[i].getDirection()){
             case DOWN:
@@ -60,21 +59,10 @@ void Grid::moveSnakes(){
                 break;
         }
 
-        if(this->checkCollision(head)){
-        }else{
-            this->setCell(head.first, head.second, SNAKE);
-            if(this->snakes[i].moveBody(head)){
-                this->setCell(tail.first, tail.second, EMPTY);
-            }
-        }
+        
 
     }
     
-}
-
-bool Grid::checkCollision(std::pair<COORDTYPE, COORDTYPE> head){
-    // TODO
-    return false;
 }
 
 void Grid::resetGrid(){

@@ -7,8 +7,6 @@ class Snake{
 	public:
 		Snake(const COORDTYPE x, const COORDTYPE y, const int length=5);
 
-		// bool moveBody(const COORDTYPE x, const COORDTYPE y);
-		// bool moveBody(const std::pair<COORDTYPE, COORDTYPE> newHead);
 		void setNewHead();
 		void removeTail();
 		void emptySnake();

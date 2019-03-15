@@ -4,30 +4,9 @@ Snake::Snake(const COORDTYPE x, const COORDTYPE y, const int length){
 	this->baseLength = length;
     this->adultLength = length;
     this->dir = UP;
-    // this->moveBody(x, y);
     this->setHead(std::pair<COORDTYPE, COORDTYPE>(x, y));
     this->setAlive(true);
 }
-
-// bool Snake::moveBody(const COORDTYPE x, const COORDTYPE y){
-// 	this->body.push_front(std::pair<COORDTYPE, COORDTYPE>(x, y));
-//     if(this->getCurrentLength() > this->getAdultLength()){
-// 	    this->body.pop_back();
-//         return true;
-//     }else{
-//         return false;
-//     }
-// }
-
-// bool Snake::moveBody(const std::pair<COORDTYPE, COORDTYPE> newHead){
-//     this->body.push_front(newHead);
-//     if(this->getCurrentLength() > this->getAdultLength()){
-//         this->body.pop_back();
-//         return true;
-//     }else{
-//         return false;
-//     }
-// }
 
 void Snake::setNewHead(){
     this->setHead(this->getFutureHead());

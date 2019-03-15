@@ -10,6 +10,7 @@ class Snake{
 		void setNewHead();
 		void removeTail();
 		void emptySnake();
+		void incrementSize();
 
 		void displayBodyFromHeadToTail() const;
 

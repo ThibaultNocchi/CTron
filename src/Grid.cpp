@@ -75,10 +75,11 @@ void Grid::moveSnakes(){
         
         if(this->snakes[i].getAlive()){
             auto newHead = this->snakes[i].getFutureHead();
-            if(this->getCell(newHead.first, newHead.second) != EMPTY){
+            auto cellValue = this->getCell(newHead.first, newHead.second);
+            if(cellValue == SNAKE || cellValue == WALL){
                 this->snakes[i].setAlive(false);
                 this->resetSnake(i);
-            }else{
+            }else if(cellValue == EMPTY){
 
                 for(size_t j = (i+1); j < this->snakes.size(); ++j){
                     auto newHead2 = this->snakes[j].getFutureHead();
@@ -94,6 +95,10 @@ void Grid::moveSnakes(){
             if(this->snakes[i].getAlive()){
                 this->snakes[i].setNewHead();
                 this->setCell(newHead.first, newHead.second, SNAKE);
+                if(cellValue == BONUS){
+                    this->putBonus();
+                    this->snakes[i].incrementSize();
+                }
             }
         }
 

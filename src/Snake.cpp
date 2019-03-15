@@ -18,6 +18,11 @@ void Snake::removeTail(){
 
 void Snake::emptySnake(){
     this->body.clear();
+    this->adultLength = this->baseLength;
+}
+
+void Snake::incrementSize(){
+    ++this->adultLength;
 }
 
 void Snake::displayBodyFromHeadToTail() const{

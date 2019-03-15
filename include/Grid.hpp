@@ -16,6 +16,8 @@ class Grid{
 		void resetSnake(int index);
 		void resetSnakes();
 
+		void addWall(const COORDS topLeft, const COORDS bottomRight);
+
 		void displayGridBasic();
 
 		COORDTYPE getWidth() const;

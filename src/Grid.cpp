@@ -132,6 +132,14 @@ void Grid::resetSnakes(){
     this->snakes.clear();
 }
 
+void Grid::addWall(const COORDS topLeft, const COORDS bottomRight){
+    for(COORDTYPE x = topLeft.first; x <= bottomRight.first; ++x){
+        for(COORDTYPE y = topLeft.second; y <= bottomRight.second; ++y){
+            this->setCell(x, y, WALL);
+        }
+    }
+}
+
 void Grid::displayGridBasic(){
     for(COORDTYPE y = 0; y < this->getWidth(); ++y){
         std::cout << "-";

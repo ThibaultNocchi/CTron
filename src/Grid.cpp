@@ -144,9 +144,20 @@ void Grid::displayGridBasic(){
                     std::cout << " ";
                     break;
 
-                case SNAKE:
-                    std::cout << "O";
+                case SNAKE:{
+                    bool drawBody = true;
+                    for(size_t i = 0; i < this->snakes.size(); ++i){
+                        auto head = this->snakes[i].getHead();
+                        if(head.first == x && head.second == y){
+                            std::cout << "H";
+                            drawBody = false;
+                        }
+                    }
+                    if(drawBody){
+                        std::cout << "O";
+                    }
                     break;
+                }
 
                 case WALL:
                     std::cout << "#";

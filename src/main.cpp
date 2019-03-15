@@ -39,9 +39,8 @@ int main(int argc, char* argv[]){
 
 	}
 
-	std::cout << omp_get_wtime() - begin << std::endl;
-
 	grid.displayGridBasic();
+	std::cout << omp_get_wtime() - begin << std::endl;
 
 	return 0;
 }

@@ -18,6 +18,8 @@ class Grid{
 
 		void addWall(const COORDS topLeft, const COORDS bottomRight);
 
+		void putBonus();
+
 		void displayGridBasic();
 
 		COORDTYPE getWidth() const;
@@ -36,4 +38,5 @@ class Grid{
 		COORDTYPE height;
 		std::vector<State> cells;
 		std::vector<Snake> snakes;
+		COORDS bonus;
 };

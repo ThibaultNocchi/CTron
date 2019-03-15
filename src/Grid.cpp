@@ -140,6 +140,11 @@ void Grid::addWall(const COORDS topLeft, const COORDS bottomRight){
     }
 }
 
+void Grid::putBonus(){
+    auto cell = this->getRandomEmptyCell();
+    this->setCell(cell.first, cell.second, BONUS);
+}
+
 void Grid::displayGridBasic(){
     for(COORDTYPE y = 0; y < this->getWidth(); ++y){
         std::cout << "-";
@@ -169,6 +174,11 @@ void Grid::displayGridBasic(){
 
                 case WALL:
                     std::cout << "#";
+                    break;
+
+                case BONUS:
+                    std::cout << "$";
+                    break;
             
                 default:
                     break;

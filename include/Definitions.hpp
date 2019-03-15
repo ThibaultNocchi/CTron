@@ -1,8 +1,6 @@
 #pragma once
 #include <utility>
 
-#define COORDTYPE char
-
 #define DEFAULTWIDTH 15
 #define DEFAULTHEIGHT 15
 
@@ -13,7 +11,8 @@ enum Direction {
 };
 
 enum State {
-	EMPTY, WALL, SNAKE
+	EMPTY, WALL, SNAKE, BONUS
 };
 
-typedef std::pair<COORDTYPE, COORDTYPE> COORDS;
+using COORDTYPE = char;
+using COORDS = std::pair<COORDTYPE, COORDTYPE>;

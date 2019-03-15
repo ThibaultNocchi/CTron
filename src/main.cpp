@@ -10,6 +10,7 @@ int main(int argc, char* argv[]){
 	grid.addWall(std::pair<COORDTYPE, COORDTYPE>(2,2), std::pair<COORDTYPE, COORDTYPE>(4,4));
 	grid.addSnake(3);
 	grid.addSnake(3);
+	grid.putBonus();
 	grid.displayGridBasic();
 
 	double begin = omp_get_wtime();

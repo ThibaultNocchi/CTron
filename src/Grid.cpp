@@ -190,8 +190,8 @@ COORDTYPE Grid::getHeight() const{
     return this->height;
 }
 
-std::pair<COORDTYPE, COORDTYPE> Grid::getSize() const{
-    return std::pair<COORDTYPE, COORDTYPE>(this->width, this->height);
+COORDS Grid::getSize() const{
+    return COORDS(this->width, this->height);
 }
 
 int Grid::getIndex(const COORDTYPE x, const COORDTYPE y) const{
@@ -204,13 +204,13 @@ State Grid::getCell(const COORDTYPE x, const COORDTYPE y) const{
     return this->cells[this->getIndex(x, y)];
 }
 
-std::pair<COORDTYPE, COORDTYPE> Grid::getRandomEmptyCell() const{
+COORDS Grid::getRandomEmptyCell() const{
     COORDTYPE x, y;
     do{
         x = std::rand() % this->getWidth();
         y = std::rand() % this->getHeight();
     }while(this->getCell(x, y) != 0);
-    return std::pair<COORDTYPE, COORDTYPE>(x, y);
+    return COORDS(x, y);
 }
 
 std::vector<Snake>& Grid::getSnakes(){

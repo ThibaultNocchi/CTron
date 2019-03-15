@@ -11,7 +11,6 @@ int main(int argc, char* argv[]){
 	grid.addSnake(3);
 	grid.addSnake(3);
 	grid.displayGridBasic();
-	std::srand(std::time(nullptr));
 
 	double begin = omp_get_wtime();
 	

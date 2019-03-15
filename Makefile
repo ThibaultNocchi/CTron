@@ -1,5 +1,5 @@
 CC = g++
-CFLAGS = -Wall -I$(IDIR)
+CFLAGS = -Wall -I$(IDIR) -std=c++14
 
 IDIR = include
 LDIR = lib

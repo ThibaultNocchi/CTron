@@ -21,16 +21,16 @@ int main(int argc, char* argv[]){
 			auto dir = grid.getSnakes()[j].getDirection();
 			switch(result){
 				case 0:
-					if(dir != DOWN) grid.getSnakes()[j].setDirection(UP);
+					if(dir != DOWN) grid.setDirection(j, UP);
 					break;
 				case 1:
-					if(dir != UP) grid.getSnakes()[j].setDirection(DOWN);
+					if(dir != UP) grid.setDirection(j, DOWN);
 					break;
 				case 2:
-					if(dir != RIGHT) grid.getSnakes()[j].setDirection(LEFT);
+					if(dir != RIGHT) grid.setDirection(j, LEFT);
 					break;
 				case 3:
-					if(dir != LEFT) grid.getSnakes()[j].setDirection(RIGHT);
+					if(dir != LEFT) grid.setDirection(j, RIGHT);
 					break;
 			}
 		}

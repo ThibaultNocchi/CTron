@@ -26,9 +26,10 @@ class Grid{
 		int getIndex(const COORDTYPE x, const COORDTYPE y) const;
 		State getCell(const COORDTYPE x, const COORDTYPE y) const;
 		COORDS getRandomEmptyCell() const;
-		std::vector<Snake>& getSnakes();
+		const std::vector<Snake>& getSnakes() const;
 
 		void setCell(const COORDTYPE x, const COORDTYPE y, State value);
+		void setDirection(size_t index, Direction dir);
 
 	private:
 		COORDTYPE width;

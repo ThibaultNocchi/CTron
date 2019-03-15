@@ -213,11 +213,15 @@ COORDS Grid::getRandomEmptyCell() const{
     return COORDS(x, y);
 }
 
-std::vector<Snake>& Grid::getSnakes(){
+const std::vector<Snake>& Grid::getSnakes() const{
     return this->snakes;
 }
 
 void Grid::setCell(const COORDTYPE x, const COORDTYPE y, State value){
     // this->cells.at(this->getIndex(x, y)) = value;
     this->cells[this->getIndex(x, y)] = value;
+}
+
+void Grid::setDirection(size_t index, Direction dir){
+    this->snakes[index].setDirection(dir);
 }

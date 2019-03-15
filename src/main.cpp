@@ -1,4 +1,4 @@
-#include <cstdlib>*
+#include <cstdlib>
 #include <omp.h>
 #include "Definitions.hpp"
 #include "Grid.hpp"

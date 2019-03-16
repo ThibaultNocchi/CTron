@@ -36,6 +36,7 @@ class Grid{
 		void setDirection(size_t index, Direction dir);
 
 		bool operator<(const Grid& other) const;
+		bool operator==(const Grid& other) const;
 
 	private:
 		COORDTYPE width;

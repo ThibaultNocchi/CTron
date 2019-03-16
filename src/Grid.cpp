@@ -3,6 +3,7 @@
 Grid::Grid(const COORDTYPE width, const COORDTYPE height) {
     this->width = width;
     this->height = height;
+    this->aliveSnakes = 0;
     this->cells.resize(this->getWidth()*this->getHeight());
     this->resetGrid();
     std::srand(std::time(nullptr));
@@ -13,6 +14,7 @@ void Grid::addSnake(const int length){
     auto newSnake = Snake(newPosition.first, newPosition.second, length);
     this->snakes.push_back(newSnake);
     this->setCell(newPosition.first, newPosition.second, SNAKE);
+    ++this->aliveSnakes;
 }
 
 // 0,0 is considered to be top left.
@@ -79,6 +81,7 @@ void Grid::moveSnakes(){
             if(cellValue == SNAKE || cellValue == WALL){
                 this->snakes[i].setAlive(false);
                 this->resetSnake(i);
+                --this->aliveSnakes;
             }else if(cellValue == EMPTY){
 
                 for(size_t j = (i+1); j < this->snakes.size(); ++j){
@@ -88,6 +91,7 @@ void Grid::moveSnakes(){
                         this->snakes[j].setAlive(false);
                         this->resetSnake(i);
                         this->resetSnake(j);
+                        this->aliveSnakes -= 2;
                     }
                 }
 
@@ -108,6 +112,7 @@ void Grid::moveSnakes(){
     for(size_t i = 0; i < this->snakes.size(); ++i){
         if(!this->snakes[i].getAlive()){
             this->snakes[i].setAlive(true);
+            ++this->aliveSnakes;
             auto newPos = this->getRandomEmptyCell();
             this->snakes[i].setHead(newPos);
             this->setCell(newPos.first, newPos.second, SNAKE);
@@ -232,6 +237,14 @@ const std::vector<Snake>& Grid::getSnakes() const{
     return this->snakes;
 }
 
+int Grid::getNumberAliveSnakes() const{
+    return this->aliveSnakes;
+}
+
+const COORDS Grid::getBonus() const{
+    return this->bonus;
+}
+
 void Grid::setCell(const COORDTYPE x, const COORDTYPE y, State value){
     // this->cells.at(this->getIndex(x, y)) = value;
     this->cells[this->getIndex(x, y)] = value;
@@ -239,4 +252,45 @@ void Grid::setCell(const COORDTYPE x, const COORDTYPE y, State value){
 
 void Grid::setDirection(size_t index, Direction dir){
     this->snakes[index].setDirection(dir);
+}
+
+bool Grid::operator<(const Grid& other) const{
+    
+    if(this->snakes.size() < other.getSnakes().size()) return true;
+    else if(this->snakes.size() > other.getSnakes().size()) return false;
+
+    auto bonus1 = this->getBonus();
+    auto bonus2 = other.getBonus();
+
+    if(bonus1.first < bonus2.first) return true;
+    if(bonus1.first > bonus2.first) return false;
+
+    if(bonus1.second < bonus2.second) return true;
+    if(bonus1.second > bonus2.second) return false;
+
+    auto snakes1 = this->getSnakes();
+    auto snakes2 = other.getSnakes();
+
+    for(size_t i = 0; i < snakes1.size(); ++i){
+        if(!snakes1[i].getAlive() && snakes2[i].getAlive()) return true;
+        else if(snakes1[i].getAlive() && !snakes2[i].getAlive()) return false;
+
+        if(snakes1[i].getCurrentLength() < snakes2[i].getCurrentLength()) return true;
+        if(snakes1[i].getCurrentLength() > snakes2[i].getCurrentLength()) return false;
+
+        auto body1 = snakes1[i].getBody();
+        auto body2 = snakes2[i].getBody();
+
+        for(size_t j = 0; j < body1.size(); ++j){
+            auto pos1 = body1[j];
+            auto pos2 = body2[j];
+            if(pos1.first < pos2.first) return true;
+            if(pos1.first > pos2.first) return false;
+            if(pos1.second < pos2.second) return true;
+            if(pos1.second > pos2.second) return false;
+        }
+    }
+
+    return false;
+
 }

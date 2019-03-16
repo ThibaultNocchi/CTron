@@ -29,9 +29,13 @@ class Grid{
 		State getCell(const COORDTYPE x, const COORDTYPE y) const;
 		COORDS getRandomEmptyCell() const;
 		const std::vector<Snake>& getSnakes() const;
+		int getNumberAliveSnakes() const;
+		const COORDS getBonus() const;
 
 		void setCell(const COORDTYPE x, const COORDTYPE y, State value);
 		void setDirection(size_t index, Direction dir);
+
+		bool operator<(const Grid& other) const;
 
 	private:
 		COORDTYPE width;
@@ -39,4 +43,5 @@ class Grid{
 		std::vector<State> cells;
 		std::vector<Snake> snakes;
 		COORDS bonus;
+		int aliveSnakes;
 };

@@ -46,3 +46,13 @@ class Grid{
 		COORDS bonus;
 		int aliveSnakes;
 };
+
+namespace std {
+template <> class hash<Grid> {
+public:
+  size_t operator()(const Grid &g) const {
+      return 1;
+    }
+};
+
+}

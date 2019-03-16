@@ -224,7 +224,7 @@ COORDS Grid::getRandomEmptyCell() const{
     do{
         x = std::rand() % this->getWidth();
         y = std::rand() % this->getHeight();
-    }while(this->getCell(x, y) != 0);
+    }while(this->getCell(x, y) != EMPTY);
     return COORDS(x, y);
 }
 

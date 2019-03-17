@@ -47,7 +47,7 @@ Direction Snake::getDirection() const{
     return this->dir;
 }
 
-std::deque<std::pair<COORDTYPE, COORDTYPE>> Snake::getBody() const{
+const std::deque<std::pair<COORDTYPE, COORDTYPE>>& Snake::getBody() const{
     return this->body;
 }
 

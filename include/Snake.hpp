@@ -18,7 +18,7 @@ class Snake{
 		int getAdultLength() const;
 		int getCurrentLength() const;
 		Direction getDirection() const;
-		std::deque<std::pair<COORDTYPE, COORDTYPE>> getBody() const;
+		const std::deque<std::pair<COORDTYPE, COORDTYPE>>& getBody() const;
 		std::pair<COORDTYPE, COORDTYPE> getHead() const;
 		std::pair<COORDTYPE, COORDTYPE> getTail() const;
 		std::pair<COORDTYPE, COORDTYPE> getFutureHead() const;

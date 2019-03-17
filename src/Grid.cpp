@@ -151,7 +151,7 @@ void Grid::addWall(const COORDS topLeft, const COORDS bottomRight){
 }
 
 void Grid::putBonus(){
-    auto cell = this->getRandomEmptyCell();
+    COORDS cell = this->getRandomEmptyCell();
     this->bonus = cell;
     this->setCell(cell.first, cell.second, BONUS);
 }

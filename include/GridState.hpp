@@ -7,6 +7,7 @@
 class GridState{
 	public:
 		GridState(const std::vector<Snake>& vSnakes, const COORDS& coor);
+		GridState(const Grid& grid);
 		const std::vector<Snake>& getSnakes() const;
 		const COORDS& getBonus() const;
 		bool operator==(const GridState& other) const;

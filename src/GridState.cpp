@@ -5,6 +5,11 @@ GridState::GridState(const std::vector<Snake>& vSnakes, const COORDS& coor){
 	this->pair.second = coor;
 }
 
+GridState::GridState(const Grid& grid){
+	this->pair.first = grid.getSnakes();
+	this->pair.second = grid.getBonus();
+}
+
 const std::vector<Snake>& GridState::getSnakes() const{
 	return this->pair.first;
 }

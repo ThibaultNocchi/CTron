@@ -4,7 +4,7 @@ Snake::Snake(const COORDTYPE x, const COORDTYPE y, const int length){
 	this->baseLength = length;
     this->adultLength = length;
     this->dir = UP;
-    this->setHead(std::pair<COORDTYPE, COORDTYPE>(x, y));
+    this->setHead(COORDS(x, y));
     this->setAlive(true);
 }
 
@@ -47,19 +47,19 @@ Direction Snake::getDirection() const{
     return this->dir;
 }
 
-const std::deque<std::pair<COORDTYPE, COORDTYPE>>& Snake::getBody() const{
+const std::deque<COORDS>& Snake::getBody() const{
     return this->body;
 }
 
-std::pair<COORDTYPE, COORDTYPE> Snake::getHead() const{
+COORDS Snake::getHead() const{
     return this->body.front();
 }
 
-std::pair<COORDTYPE, COORDTYPE> Snake::getTail() const{
+COORDS Snake::getTail() const{
     return this->body.back();
 }
 
-std::pair<COORDTYPE, COORDTYPE> Snake::getFutureHead() const{
+COORDS Snake::getFutureHead() const{
     return this->futureHead;
 }
 
@@ -71,7 +71,7 @@ void Snake::setDirection(const Direction direction){
 	this->dir = direction;
 }
 
-void Snake::setFutureHead(const std::pair<COORDTYPE, COORDTYPE> head){
+void Snake::setFutureHead(const COORDS head){
     this->futureHead = head;
 }
 
@@ -79,6 +79,6 @@ void Snake::setAlive(const bool state){
     this->alive = state;
 }
 
-void Snake::setHead(const std::pair<COORDTYPE, COORDTYPE> head){
+void Snake::setHead(const COORDS head){
     this->body.push_front(head);
 }

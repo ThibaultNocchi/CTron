@@ -23,7 +23,7 @@ void Grid::moveSnakes(){
     // Calculating future new head, and removing the end of the tail if needed.
     for(size_t i = 0; i < this->snakes.size(); ++i){
         
-        auto head = this->snakes[i].getHead();
+        COORDS head = this->snakes[i].getHead();
 
         switch (this->snakes[i].getDirection()){
             case DOWN:
@@ -64,7 +64,7 @@ void Grid::moveSnakes(){
 
         this->snakes[i].setFutureHead(head);
         if(this->snakes[i].getCurrentLength() == this->snakes[i].getAdultLength()){
-            auto tail = this->snakes[i].getTail();
+            COORDS tail = this->snakes[i].getTail();
             this->setCell(tail.first, tail.second, EMPTY);
             this->snakes[i].removeTail();
         }
@@ -76,8 +76,8 @@ void Grid::moveSnakes(){
     for(size_t i = 0; i < this->snakes.size(); ++i){
         
         if(this->snakes[i].getAlive()){
-            auto newHead = this->snakes[i].getFutureHead();
-            auto cellValue = this->getCell(newHead.first, newHead.second);
+            COORDS newHead = this->snakes[i].getFutureHead();
+            State cellValue = this->getCell(newHead.first, newHead.second);
             if(cellValue == SNAKE || cellValue == WALL){
                 this->snakes[i].setAlive(false);
                 this->resetSnake(i);
@@ -85,7 +85,7 @@ void Grid::moveSnakes(){
             }else if(cellValue == EMPTY){
 
                 for(size_t j = (i+1); j < this->snakes.size(); ++j){
-                    auto newHead2 = this->snakes[j].getFutureHead();
+                    COORDS newHead2 = this->snakes[j].getFutureHead();
                     if(newHead.first == newHead2.first && newHead.second == newHead2.second){
                         this->snakes[i].setAlive(false);
                         this->snakes[j].setAlive(false);
@@ -113,7 +113,7 @@ void Grid::moveSnakes(){
         if(!this->snakes[i].getAlive()){
             this->snakes[i].setAlive(true);
             ++this->aliveSnakes;
-            auto newPos = this->getRandomEmptyCell();
+            COORDS newPos = this->getRandomEmptyCell();
             this->snakes[i].setHead(newPos);
             this->setCell(newPos.first, newPos.second, SNAKE);
         }

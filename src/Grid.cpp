@@ -246,6 +246,10 @@ const COORDS Grid::getBonus() const{
     return this->bonus;
 }
 
+const std::vector<State>& Grid::getCells() const{
+    return this->cells;
+}
+
 void Grid::setCell(const COORDTYPE x, const COORDTYPE y, State value){
     // this->cells.at(this->getIndex(x, y)) = value;
     this->cells[this->getIndex(x, y)] = value;

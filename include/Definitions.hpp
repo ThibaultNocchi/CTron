@@ -11,7 +11,7 @@ enum Direction {
 };
 
 enum State {
-	EMPTY, WALL, SNAKE, BONUS
+	EMPTY, WALL, SNAKE, BONUS, HEAD
 };
 
 using COORDTYPE = char;

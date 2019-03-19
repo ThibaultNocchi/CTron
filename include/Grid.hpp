@@ -3,6 +3,7 @@
 #include <ctime>
 #include <cstdlib>
 #include <iostream>
+#include <random>
 #include "Definitions.hpp"
 #include "Snake.hpp"
 
@@ -46,6 +47,11 @@ class Grid{
 		std::vector<Snake> snakes;
 		COORDS bonus;
 		int aliveSnakes;
+		std::vector<std::vector<u_int64_t>> hashes;
+		std::vector<std::vector<uint64_t>> snakesHashes;
+		static std::random_device rd;
+		static std::mt19937_64 eng;
+		static std::uniform_int_distribution<uint64_t> distr;
 };
 
 namespace std {

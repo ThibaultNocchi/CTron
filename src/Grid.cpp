@@ -310,8 +310,8 @@ bool Grid::operator==(const Grid& other) const{
     if(bonus1.first != bonus2.first) return false;
     if(bonus1.second != bonus2.second) return false;
 
-    auto snakes1 = this->getSnakes();
-    auto snakes2 = other.getSnakes();
+    const auto& snakes1 = this->getSnakes();
+    const auto& snakes2 = other.getSnakes();
 
     for(size_t i = 0; i < snakes1.size(); ++i){
         if(snakes1[i].getAlive() != snakes2[i].getAlive()) return false;

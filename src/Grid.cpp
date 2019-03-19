@@ -242,7 +242,7 @@ int Grid::getNumberAliveSnakes() const{
     return this->aliveSnakes;
 }
 
-const COORDS Grid::getBonus() const{
+const COORDS& Grid::getBonus() const{
     return this->bonus;
 }
 
@@ -304,8 +304,8 @@ bool Grid::operator==(const Grid& other) const{
     
     if(this->snakes.size() != other.getSnakes().size()) return false;
 
-    auto bonus1 = this->getBonus();
-    auto bonus2 = other.getBonus();
+    const auto& bonus1 = this->getBonus();
+    const auto& bonus2 = other.getBonus();
 
     if(bonus1.first != bonus2.first) return false;
     if(bonus1.second != bonus2.second) return false;
@@ -318,8 +318,8 @@ bool Grid::operator==(const Grid& other) const{
 
         if(snakes1[i].getCurrentLength() != snakes2[i].getCurrentLength()) return false;
 
-        auto body1 = snakes1[i].getBody();
-        auto body2 = snakes2[i].getBody();
+        const auto& body1 = snakes1[i].getBody();
+        const auto& body2 = snakes2[i].getBody();
 
         for(size_t j = 0; j < body1.size(); ++j){
             auto pos1 = body1[j];

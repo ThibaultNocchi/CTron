@@ -6,36 +6,39 @@ Grid::Grid(const COORDTYPE width, const COORDTYPE height) {
     this->height = height;
     this->aliveSnakes = 0;
     this->cells.resize(this->getWidth()*this->getHeight());
-    this->resetGrid();
     std::srand(std::time(nullptr));
 
-    this->putBonus();
-
     this->hashes.resize(this->width*this->height);
+    this->snakesHashes.resize(this->width*this->height);
     for(size_t i = 0; i < this->hashes.size(); ++i){
         this->hashes[i].resize(3); // Number of states, without snakes.
-        this->hashes[i][EMPTY] = distr(this->eng);
-        this->hashes[i][WALL] = distr(this->eng);
-        this->hashes[i][BONUS] = distr(this->eng);
+        this->hashes[i][EMPTY] = distr(eng);
+        this->hashes[i][WALL] = distr(eng);
+        this->hashes[i][BONUS] = distr(eng);
+        this->snakesHashes[i].clear();
     }
 
-    this->snakesHashes.resize(0);
+    this->resetGrid();
+    this->putBonus();
 
 }
 
 void Grid::addSnake(const int length){
 
+    for(size_t i = 0; i < this->snakesHashes.size(); ++i){
+        
+        std::pair<u_int64_t, u_int64_t> newPair;
+        newPair.first = distr(eng);
+        newPair.second = distr(eng);
+        this->snakesHashes[i].push_back(newPair);
+
+    }
+
     auto newPosition = this->getRandomEmptyCell();
     auto newSnake = Snake(newPosition.first, newPosition.second, length);
     this->snakes.push_back(newSnake);
-    this->setCell(newPosition.first, newPosition.second, HEAD);
+    this->setCell(newPosition.first, newPosition.second, HEAD, this->snakes.size() - 1);
     ++this->aliveSnakes;
-
-    // std::vector<uint64_t> newHashes;
-    // newHashes.resize(this->width * this->height);
-    // for(int i = 0; i < newHashes.size(); ++i){
-
-    // }
 
 }
 
@@ -87,7 +90,7 @@ void Grid::moveSnakes(){
         this->snakes[i].setFutureHead(head);
         if(this->snakes[i].getCurrentLength() == this->snakes[i].getAdultLength()){
             COORDS tail = this->snakes[i].getTail();
-            this->setCell(tail.first, tail.second, EMPTY);
+            this->setCell(tail.first, tail.second, EMPTY, i);
             this->snakes[i].removeTail();
         }
 
@@ -122,10 +125,10 @@ void Grid::moveSnakes(){
             if(this->snakes[i].getAlive()){
                 if(this->snakes[i].getCurrentLength() > 0){
                     auto currentHead = this->snakes[i].getHead();
-                    this->setCell(currentHead.first, currentHead.second, SNAKE);
+                    this->setCell(currentHead.first, currentHead.second, SNAKE, i);
                 }
                 this->snakes[i].setNewHead();
-                this->setCell(newHead.first, newHead.second, HEAD);
+                this->setCell(newHead.first, newHead.second, HEAD, i);
                 if(cellValue == BONUS){
                     this->putBonus();
                     this->snakes[i].incrementSize();
@@ -142,7 +145,7 @@ void Grid::moveSnakes(){
             ++this->aliveSnakes;
             COORDS newPos = this->getRandomEmptyCell();
             this->snakes[i].setHead(newPos);
-            this->setCell(newPos.first, newPos.second, HEAD);
+            this->setCell(newPos.first, newPos.second, HEAD, i);
         }
     }
     
@@ -155,12 +158,13 @@ void Grid::resetGrid(){
         }
     }
     this->resetSnakes();
+    this->initHash();
 }
 
 void Grid::resetSnake(int index){
     auto body = this->snakes[index].getBody();
     for(auto part : body){
-        this->setCell(part.first, part.second, EMPTY);
+        this->setCell(part.first, part.second, EMPTY, index);
     }
     this->snakes[index].emptySnake();
 }
@@ -181,6 +185,28 @@ void Grid::putBonus(){
     COORDS cell = this->getRandomEmptyCell();
     this->bonus = cell;
     this->setCell(cell.first, cell.second, BONUS);
+}
+
+void Grid::applyHash(const COORDTYPE x, const COORDTYPE y, const State s){
+    this->currentHash ^= this->hashes[this->getIndex(x, y)][s];
+}
+
+void Grid::applySnakeHash(const COORDTYPE x, const COORDTYPE y, const size_t snakeID, const State s){
+    if(s == HEAD){
+        this->currentHash ^= this->snakesHashes[this->getIndex(x, y)][snakeID].first;
+    }else{
+        this->currentHash ^= this->snakesHashes[this->getIndex(x, y)][snakeID].second;
+    }
+}
+
+void Grid::initHash(){
+    this->currentHash = 0;
+
+    for(COORDTYPE x = 0; x < this->height; ++x){
+        for(COORDTYPE y = 0; y < this->width; ++y){
+            this->applyHash(x, y, this->getCell(x, y));
+        }
+    }
 }
 
 void Grid::displayGridBasic(){
@@ -272,9 +298,24 @@ const std::vector<State>& Grid::getCells() const{
     return this->cells;
 }
 
-void Grid::setCell(const COORDTYPE x, const COORDTYPE y, State value){
+const u_int64_t Grid::getHash() const{
+    return this->currentHash;
+}
+
+void Grid::setCell(const COORDTYPE x, const COORDTYPE y, State value, size_t snakeID){
     // this->cells.at(this->getIndex(x, y)) = value;
+    State old = this->getCell(x, y);
     this->cells[this->getIndex(x, y)] = value;
+    if(old == EMPTY || old == WALL || old == BONUS){
+        this->applyHash(x, y, old);
+    }else{
+        this->applySnakeHash(x, y, snakeID, old);
+    }
+    if(value == EMPTY || value == WALL || value == BONUS){
+        this->applyHash(x, y, value);
+    }else{
+        this->applySnakeHash(x, y, snakeID, value);
+    }
 }
 
 void Grid::setDirection(size_t index, Direction dir){

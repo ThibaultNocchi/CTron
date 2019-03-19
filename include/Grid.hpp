@@ -21,6 +21,10 @@ class Grid{
 
 		void putBonus();
 
+		void applyHash(const COORDTYPE x, const COORDTYPE y, const State s);
+		void applySnakeHash(const COORDTYPE x, const COORDTYPE y, const size_t snakeID, const State s);
+		void initHash();
+
 		void displayGridBasic();
 
 		COORDTYPE getWidth() const;
@@ -33,8 +37,9 @@ class Grid{
 		int getNumberAliveSnakes() const;
 		const COORDS& getBonus() const;
 		const std::vector<State>& getCells() const;
+		const u_int64_t getHash() const;
 
-		void setCell(const COORDTYPE x, const COORDTYPE y, State value);
+		void setCell(const COORDTYPE x, const COORDTYPE y, State value, size_t snakeID = 0);
 		void setDirection(size_t index, Direction dir);
 
 		bool operator<(const Grid& other) const;
@@ -48,10 +53,11 @@ class Grid{
 		COORDS bonus;
 		int aliveSnakes;
 		std::vector<std::vector<u_int64_t>> hashes;
-		std::vector<std::vector<uint64_t>> snakesHashes;
+		std::vector<std::vector<std::pair<u_int64_t, u_int64_t>>> snakesHashes;
+		u_int64_t currentHash;
 		static std::random_device rd;
 		static std::mt19937_64 eng;
-		static std::uniform_int_distribution<uint64_t> distr;
+		static std::uniform_int_distribution<u_int64_t> distr;
 };
 
 namespace std {

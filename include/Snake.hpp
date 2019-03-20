@@ -5,14 +5,14 @@
 
 class Snake{
 	public:
-		Snake(const COORDTYPE x, const COORDTYPE y, const int length=5, const AIType ai=NAIVE);
+		Snake(const COORDTYPE x, const COORDTYPE y, const int length=5);
 
 		void setNewHead();
 		void removeTail();
 		void emptySnake();
 		void incrementSize();
 
-		void setNewDirection();
+		virtual void setNewDirection() = 0;
 
 		void displayBodyFromHeadToTail() const;
 

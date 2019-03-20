@@ -23,7 +23,7 @@ Grid::Grid(const COORDTYPE width, const COORDTYPE height) {
 
 }
 
-void Grid::addSnake(const int length){
+void Grid::addSnake(const int length, const AIType ai){
 
     for(size_t i = 0; i < this->snakesHashes.size(); ++i){
         
@@ -35,8 +35,17 @@ void Grid::addSnake(const int length){
     }
 
     auto newPosition = this->getRandomEmptyCell();
-    auto newSnake = std::make_shared<Snake>(newPosition.first, newPosition.second, length);
-    this->snakes.push_back(newSnake);
+    
+    switch(ai){
+        case NAIVE:{
+            auto newSnake = std::make_shared<SnakeNaive>(newPosition.first, newPosition.second, length);
+            this->snakes.push_back(newSnake);
+            break;
+        }
+        case MCTS:
+            break;
+    }
+
     this->setCell(newPosition.first, newPosition.second, HEAD, this->snakes.size() - 1);
     ++this->aliveSnakes;
 

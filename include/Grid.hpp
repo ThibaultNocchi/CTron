@@ -7,12 +7,13 @@
 #include <memory>
 #include "Definitions.hpp"
 #include "Snake.hpp"
+#include "SnakeNaive.hpp"
 
 class Grid{
 	public:
 		Grid(const COORDTYPE width=DEFAULTWIDTH, const COORDTYPE height=DEFAULTHEIGHT);
 
-		void addSnake(const int length=DEFAULTSNAKE);
+		void addSnake(const int length=DEFAULTSNAKE, const AIType ai=NAIVE);
 		void moveSnakes();
 		void resetGrid();
 		void resetSnake(int index);

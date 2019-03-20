@@ -146,7 +146,7 @@ void Grid::moveSnakes(){
 
     // Respawning dead snakes
     for(size_t i = 0; i < this->snakes.size(); ++i){
-        if(!this->snakes[i]->getAlive()){
+        if(!this->snakes[i]->getAlive() && this->snakes[i]->getLives() != 0){
             this->snakes[i]->setAlive(true);
             ++this->aliveSnakes;
             COORDS newPos = this->getRandomEmptyCell();

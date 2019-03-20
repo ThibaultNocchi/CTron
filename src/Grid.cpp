@@ -35,7 +35,7 @@ void Grid::addSnake(const int length){
     }
 
     auto newPosition = this->getRandomEmptyCell();
-    auto newSnake = Snake(newPosition.first, newPosition.second, length);
+    auto newSnake = std::make_shared<Snake>(newPosition.first, newPosition.second, length);
     this->snakes.push_back(newSnake);
     this->setCell(newPosition.first, newPosition.second, HEAD, this->snakes.size() - 1);
     ++this->aliveSnakes;
@@ -48,9 +48,9 @@ void Grid::moveSnakes(){
     // Calculating future new head, and removing the end of the tail if needed.
     for(size_t i = 0; i < this->snakes.size(); ++i){
         
-        COORDS head = this->snakes[i].getHead();
+        COORDS head = this->snakes[i]->getHead();
 
-        switch (this->snakes[i].getDirection()){
+        switch(this->snakes[i]->getDirection()){
             case DOWN:
                 if(head.first == this->getHeight() - 1){
                     head.first = 0;
@@ -87,11 +87,11 @@ void Grid::moveSnakes(){
                 break;
         }
 
-        this->snakes[i].setFutureHead(head);
-        if(this->snakes[i].getCurrentLength() == this->snakes[i].getAdultLength()){
-            COORDS tail = this->snakes[i].getTail();
+        this->snakes[i]->setFutureHead(head);
+        if(this->snakes[i]->getCurrentLength() == this->snakes[i]->getAdultLength()){
+            COORDS tail = this->snakes[i]->getTail();
             this->setCell(tail.first, tail.second, EMPTY, i);
-            this->snakes[i].removeTail();
+            this->snakes[i]->removeTail();
         }
 
     }
@@ -100,21 +100,21 @@ void Grid::moveSnakes(){
     // Then checking for frontal collisions with another future head.
     for(size_t i = 0; i < this->snakes.size(); ++i){
         
-        if(this->snakes[i].getAlive()){
-            COORDS newHead = this->snakes[i].getFutureHead();
+        if(this->snakes[i]->getAlive()){
+            COORDS newHead = this->snakes[i]->getFutureHead();
             State cellValue = this->getCell(newHead.first, newHead.second);
 
             if(cellValue == SNAKE || cellValue == WALL || cellValue == HEAD){
-                this->snakes[i].setAlive(false);
+                this->snakes[i]->setAlive(false);
                 this->resetSnake(i);
                 --this->aliveSnakes;
             }else if(cellValue == EMPTY){
 
                 for(size_t j = (i+1); j < this->snakes.size(); ++j){
-                    COORDS newHead2 = this->snakes[j].getFutureHead();
+                    COORDS newHead2 = this->snakes[j]->getFutureHead();
                     if(newHead.first == newHead2.first && newHead.second == newHead2.second){
-                        this->snakes[i].setAlive(false);
-                        this->snakes[j].setAlive(false);
+                        this->snakes[i]->setAlive(false);
+                        this->snakes[j]->setAlive(false);
                         this->resetSnake(i);
                         this->resetSnake(j);
                         this->aliveSnakes -= 2;
@@ -122,16 +122,16 @@ void Grid::moveSnakes(){
                 }
 
             }
-            if(this->snakes[i].getAlive()){
-                if(this->snakes[i].getCurrentLength() > 0){
-                    auto currentHead = this->snakes[i].getHead();
+            if(this->snakes[i]->getAlive()){
+                if(this->snakes[i]->getCurrentLength() > 0){
+                    auto currentHead = this->snakes[i]->getHead();
                     this->setCell(currentHead.first, currentHead.second, SNAKE, i);
                 }
-                this->snakes[i].setNewHead();
+                this->snakes[i]->setNewHead();
                 this->setCell(newHead.first, newHead.second, HEAD, i);
                 if(cellValue == BONUS){
                     this->putBonus();
-                    this->snakes[i].incrementSize();
+                    this->snakes[i]->incrementSize();
                 }
             }
         }
@@ -140,11 +140,11 @@ void Grid::moveSnakes(){
 
     // Respawning dead snakes
     for(size_t i = 0; i < this->snakes.size(); ++i){
-        if(!this->snakes[i].getAlive()){
-            this->snakes[i].setAlive(true);
+        if(!this->snakes[i]->getAlive()){
+            this->snakes[i]->setAlive(true);
             ++this->aliveSnakes;
             COORDS newPos = this->getRandomEmptyCell();
-            this->snakes[i].setHead(newPos);
+            this->snakes[i]->setHead(newPos);
             this->setCell(newPos.first, newPos.second, HEAD, i);
         }
     }
@@ -162,11 +162,11 @@ void Grid::resetGrid(){
 }
 
 void Grid::resetSnake(int index){
-    auto body = this->snakes[index].getBody();
+    auto body = this->snakes[index]->getBody();
     for(auto part : body){
         this->setCell(part.first, part.second, EMPTY, index);
     }
-    this->snakes[index].emptySnake();
+    this->snakes[index]->emptySnake();
 }
 
 void Grid::addWall(const COORDS topLeft, const COORDS bottomRight){
@@ -278,7 +278,7 @@ COORDS Grid::getRandomEmptyCell() const{
     return COORDS(x, y);
 }
 
-const std::vector<Snake>& Grid::getSnakes() const{
+const std::vector<std::shared_ptr<Snake>>& Grid::getSnakes() const{
     return this->snakes;
 }
 
@@ -315,12 +315,12 @@ void Grid::setCell(const COORDTYPE x, const COORDTYPE y, State value, size_t sna
 }
 
 void Grid::setDirection(size_t index, Direction dir){
-    this->snakes[index].setDirection(dir);
+    this->snakes[index]->setDirection(dir);
 }
 
 void Grid::setNewDirections(){
     for(size_t i = 0; i < this->snakes.size(); ++i){
-        this->snakes[i].setNewDirection();
+        this->snakes[i]->setNewDirection();
     }
 }
 
@@ -342,14 +342,14 @@ bool Grid::operator<(const Grid& other) const{
     auto snakes2 = other.getSnakes();
 
     for(size_t i = 0; i < snakes1.size(); ++i){
-        if(!snakes1[i].getAlive() && snakes2[i].getAlive()) return true;
-        else if(snakes1[i].getAlive() && !snakes2[i].getAlive()) return false;
+        if(!snakes1[i]->getAlive() && snakes2[i]->getAlive()) return true;
+        else if(snakes1[i]->getAlive() && !snakes2[i]->getAlive()) return false;
 
-        if(snakes1[i].getCurrentLength() < snakes2[i].getCurrentLength()) return true;
-        if(snakes1[i].getCurrentLength() > snakes2[i].getCurrentLength()) return false;
+        if(snakes1[i]->getCurrentLength() < snakes2[i]->getCurrentLength()) return true;
+        if(snakes1[i]->getCurrentLength() > snakes2[i]->getCurrentLength()) return false;
 
-        auto body1 = snakes1[i].getBody();
-        auto body2 = snakes2[i].getBody();
+        auto body1 = snakes1[i]->getBody();
+        auto body2 = snakes2[i]->getBody();
 
         for(size_t j = 0; j < body1.size(); ++j){
             auto pos1 = body1[j];
@@ -379,12 +379,12 @@ bool Grid::operator==(const Grid& other) const{
     const auto& snakes2 = other.getSnakes();
 
     for(size_t i = 0; i < snakes1.size(); ++i){
-        if(snakes1[i].getAlive() != snakes2[i].getAlive()) return false;
+        if(snakes1[i]->getAlive() != snakes2[i]->getAlive()) return false;
 
-        if(snakes1[i].getCurrentLength() != snakes2[i].getCurrentLength()) return false;
+        if(snakes1[i]->getCurrentLength() != snakes2[i]->getCurrentLength()) return false;
 
-        const auto& body1 = snakes1[i].getBody();
-        const auto& body2 = snakes2[i].getBody();
+        const auto& body1 = snakes1[i]->getBody();
+        const auto& body2 = snakes2[i]->getBody();
 
         for(size_t j = 0; j < body1.size(); ++j){
             auto pos1 = body1[j];

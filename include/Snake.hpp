@@ -5,12 +5,14 @@
 
 class Snake{
 	public:
-		Snake(const COORDTYPE x, const COORDTYPE y, const int length=5);
+		Snake(const COORDTYPE x, const COORDTYPE y, const int length=5, const AIType ai=NAIVE);
 
 		void setNewHead();
 		void removeTail();
 		void emptySnake();
 		void incrementSize();
+
+		void setNewDirection();
 
 		void displayBodyFromHeadToTail() const;
 
@@ -36,5 +38,6 @@ class Snake{
 		std::deque<COORDS> body;
 		COORDS futureHead;
 		bool alive;
+		AIType ai;
 };
 

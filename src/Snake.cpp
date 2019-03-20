@@ -1,11 +1,12 @@
 #include "Snake.hpp"
 
-Snake::Snake(const COORDTYPE x, const COORDTYPE y, const int length){
+Snake::Snake(const COORDTYPE x, const COORDTYPE y, const int length, const AIType ai){
 	this->baseLength = length;
     this->adultLength = length;
     this->dir = UP;
     this->setHead(COORDS(x, y));
     this->setAlive(true);
+    this->ai = ai;
 }
 
 void Snake::setNewHead(){
@@ -23,6 +24,36 @@ void Snake::emptySnake(){
 
 void Snake::incrementSize(){
     ++this->adultLength;
+}
+
+void Snake::setNewDirection(){
+
+    switch(this->ai){
+        case NAIVE:{
+            char result = std::rand() % 4;
+			switch(result){
+				case 0:
+					if(this->dir != DOWN) this->setDirection(UP);
+					break;
+				case 1:
+					if(this->dir != UP) this->setDirection(DOWN);
+					break;
+				case 2:
+					if(this->dir != RIGHT) this->setDirection(LEFT);
+					break;
+				case 3:
+					if(this->dir != LEFT) this->setDirection(RIGHT);
+					break;
+			}
+            break;
+        }
+        case MCTS:{
+
+            break;
+        }
+
+    }
+
 }
 
 void Snake::displayBodyFromHeadToTail() const{

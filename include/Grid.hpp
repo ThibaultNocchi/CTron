@@ -40,6 +40,7 @@ class Grid{
 
 		void setCell(const COORDTYPE x, const COORDTYPE y, State value, size_t snakeID = 0);
 		void setDirection(size_t index, Direction dir);
+		void setNewDirections();
 
 		bool operator<(const Grid& other) const;
 		bool operator==(const Grid& other) const;

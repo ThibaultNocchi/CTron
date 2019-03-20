@@ -14,7 +14,7 @@ enum State {
 	EMPTY, WALL, BONUS, SNAKE, HEAD
 };
 
-enum AITypes {
+enum AIType {
 	NAIVE, MCTS
 };
 

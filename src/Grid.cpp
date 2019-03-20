@@ -318,6 +318,12 @@ void Grid::setDirection(size_t index, Direction dir){
     this->snakes[index].setDirection(dir);
 }
 
+void Grid::setNewDirections(){
+    for(size_t i = 0; i < this->snakes.size(); ++i){
+        this->snakes[i].setNewDirection();
+    }
+}
+
 bool Grid::operator<(const Grid& other) const{
     
     if(this->snakes.size() < other.getSnakes().size()) return true;

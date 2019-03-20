@@ -1,11 +1,12 @@
 #include "Snake.hpp"
 
-Snake::Snake(const COORDTYPE x, const COORDTYPE y, const int length){
+Snake::Snake(const COORDTYPE x, const COORDTYPE y, const int length, const int lives){
 	this->baseLength = length;
     this->adultLength = length;
-    this->dir = UP;
+    this->setDirection(UP);
     this->setHead(COORDS(x, y));
     this->setAlive(true);
+    this->setLives(lives);
 }
 
 void Snake::setNewHead(){
@@ -23,6 +24,10 @@ void Snake::emptySnake(){
 
 void Snake::incrementSize(){
     ++this->adultLength;
+}
+
+void Snake::decrementLives(){
+    if(this->getLives() > 0) --this->lives;
 }
 
 void Snake::displayBodyFromHeadToTail() const{
@@ -67,6 +72,10 @@ bool Snake::getAlive() const{
     return this->alive;
 }
 
+int Snake::getLives() const{
+    return this->lives;
+}
+
 void Snake::setDirection(const Direction direction){
 	this->dir = direction;
 }
@@ -81,4 +90,8 @@ void Snake::setAlive(const bool state){
 
 void Snake::setHead(const COORDS head){
     this->body.push_front(head);
+}
+
+void Snake::setLives(const int lives){
+    this->lives = lives;
 }

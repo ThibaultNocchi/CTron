@@ -23,7 +23,7 @@ Grid::Grid(const COORDTYPE width, const COORDTYPE height) {
 
 }
 
-void Grid::addSnake(const int length, const AIType ai){
+void Grid::addSnake(const int length, const AIType ai, const int lives){
 
     for(size_t i = 0; i < this->snakesHashes.size(); ++i){
         
@@ -38,12 +38,12 @@ void Grid::addSnake(const int length, const AIType ai){
     
     switch(ai){
         case NAIVE:{
-            auto newSnake = std::make_shared<SnakeNaive>(newPosition.first, newPosition.second, length);
+            auto newSnake = std::make_shared<SnakeNaive>(newPosition.first, newPosition.second, length, lives);
             this->snakes.push_back(newSnake);
             break;
         }
         case MCTS:
-            auto newSnake = std::make_shared<SnakeMCTS>(newPosition.first, newPosition.second, length);
+            auto newSnake = std::make_shared<SnakeMCTS>(newPosition.first, newPosition.second, length, lives);
             this->snakes.push_back(newSnake);
             break;
     }
@@ -116,19 +116,14 @@ void Grid::moveSnakes(){
             State cellValue = this->getCell(newHead.first, newHead.second);
 
             if(cellValue == SNAKE || cellValue == WALL || cellValue == HEAD){
-                this->snakes[i]->setAlive(false);
-                this->resetSnake(i);
-                --this->aliveSnakes;
+                this->killSnake(i);
             }else if(cellValue == EMPTY){
 
                 for(size_t j = (i+1); j < this->snakes.size(); ++j){
                     COORDS newHead2 = this->snakes[j]->getFutureHead();
                     if(newHead.first == newHead2.first && newHead.second == newHead2.second){
-                        this->snakes[i]->setAlive(false);
-                        this->snakes[j]->setAlive(false);
-                        this->resetSnake(i);
-                        this->resetSnake(j);
-                        this->aliveSnakes -= 2;
+                        this->killSnake(i);
+                        this->killSnake(j);
                     }
                 }
 
@@ -178,6 +173,13 @@ void Grid::resetSnake(int index){
         this->setCell(part.first, part.second, EMPTY, index);
     }
     this->snakes[index]->emptySnake();
+}
+
+void Grid::killSnake(int index){
+  this->snakes[index]->setAlive(false);
+  this->resetSnake(index);
+  this->snakes[index]->decrementLives();
+  --this->aliveSnakes;
 }
 
 void Grid::addWall(const COORDS topLeft, const COORDS bottomRight){

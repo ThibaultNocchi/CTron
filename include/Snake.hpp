@@ -5,7 +5,7 @@
 
 class Snake{
 	public:
-		Snake(const COORDTYPE x, const COORDTYPE y, const int length=5);
+		Snake(const COORDTYPE x, const COORDTYPE y, const int length=5, const int lives=-1);
 
 		void setNewHead();
 		void removeTail();
@@ -13,6 +13,8 @@ class Snake{
 		void incrementSize();
 
 		virtual void setNewDirection() = 0;
+
+		void decrementLives();
 
 		void displayBodyFromHeadToTail() const;
 
@@ -25,11 +27,13 @@ class Snake{
 		COORDS getTail() const;
 		COORDS getFutureHead() const;
 		bool getAlive() const;
+		int getLives() const;
 
 		void setDirection(const Direction direction);
 		void setFutureHead(const COORDS head);
 		void setAlive(const bool state);
 		void setHead(const COORDS head);
+		void setLives(const int lives);
 
 	private:
 		int baseLength;
@@ -39,5 +43,6 @@ class Snake{
 		COORDS futureHead;
 		bool alive;
 		AIType ai;
+		int lives;
 };
 

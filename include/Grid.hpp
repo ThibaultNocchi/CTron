@@ -14,10 +14,11 @@ class Grid{
 	public:
 		Grid(const COORDTYPE width=DEFAULTWIDTH, const COORDTYPE height=DEFAULTHEIGHT);
 
-		void addSnake(const int length=DEFAULTSNAKE, const AIType ai=NAIVE);
+		void addSnake(const int length=DEFAULTSNAKE, const AIType ai=NAIVE, const int lives=-1);
 		void moveSnakes();
 		void resetGrid();
 		void resetSnake(int index);
+		void killSnake(int index);
 
 		void addWall(const COORDS topLeft, const COORDS bottomRight);
 

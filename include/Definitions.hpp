@@ -14,5 +14,9 @@ enum State {
 	EMPTY, WALL, BONUS, SNAKE, HEAD
 };
 
+enum AITypes {
+	NAIVE, MCTS
+};
+
 using COORDTYPE = char;
 using COORDS = std::pair<COORDTYPE, COORDTYPE>;

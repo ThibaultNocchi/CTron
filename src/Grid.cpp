@@ -294,7 +294,7 @@ const std::vector<State>& Grid::getCells() const{
     return this->cells;
 }
 
-const u_int64_t Grid::getHash() const{
+u_int64_t Grid::getHash() const{
     return this->currentHash;
 }
 

@@ -36,7 +36,7 @@ class Grid{
 		int getNumberAliveSnakes() const;
 		const COORDS& getBonus() const;
 		const std::vector<State>& getCells() const;
-		const u_int64_t getHash() const;
+		u_int64_t getHash() const;
 
 		void setCell(const COORDTYPE x, const COORDTYPE y, State value, size_t snakeID = 0);
 		void setDirection(size_t index, Direction dir);

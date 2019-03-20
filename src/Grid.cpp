@@ -54,7 +54,7 @@ void Grid::addSnake(const int length, const AIType ai, const int lives){
 }
 
 // 0,0 is considered to be top left.
-void Grid::moveSnakes(){
+size_t Grid::moveSnakes(){
 
     // Calculating future new head, and removing the end of the tail if needed.
     for(size_t i = 0; i < this->snakes.size(); ++i){
@@ -144,7 +144,9 @@ void Grid::moveSnakes(){
 
     }
 
-    // Respawning dead snakes
+    int leftAlive = 0;
+    size_t winnerId; // Updated on each living snake, but it is only returned if there is a single living snake.
+    // Respawning dead snakes and checking if a winner is here.
     for(size_t i = 0; i < this->snakes.size(); ++i){
         if(!this->snakes[i]->getAlive() && this->snakes[i]->getLives() != 0){
             this->snakes[i]->setAlive(true);
@@ -152,8 +154,17 @@ void Grid::moveSnakes(){
             COORDS newPos = this->getRandomEmptyCell();
             this->snakes[i]->setHead(newPos);
             this->setCell(newPos.first, newPos.second, HEAD, i);
+            ++leftAlive;
+            winnerId = i;
+        }else if(this->snakes[i]->getAlive()){
+            ++leftAlive;
+            winnerId = i;
         }
     }
+
+    if(leftAlive == 1) return winnerId;
+    else if(leftAlive == 0) return -2;
+    return -1;
     
 }
 

@@ -8,6 +8,7 @@
 #include "Definitions.hpp"
 #include "Snake.hpp"
 #include "SnakeNaive.hpp"
+#include "SnakeMCTS.hpp"
 
 class Grid{
 	public:

@@ -43,6 +43,8 @@ void Grid::addSnake(const int length, const AIType ai){
             break;
         }
         case MCTS:
+            auto newSnake = std::make_shared<SnakeMCTS>(newPosition.first, newPosition.second, length);
+            this->snakes.push_back(newSnake);
             break;
     }
 

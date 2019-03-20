@@ -15,7 +15,6 @@ class Grid{
 		void moveSnakes();
 		void resetGrid();
 		void resetSnake(int index);
-		void resetSnakes();
 
 		void addWall(const COORDS topLeft, const COORDS bottomRight);
 

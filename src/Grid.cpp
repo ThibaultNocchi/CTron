@@ -157,7 +157,7 @@ void Grid::resetGrid(){
             this->setCell(x, y, EMPTY);
         }
     }
-    this->resetSnakes();
+    this->snakes.clear();
     this->initHash();
 }
 
@@ -167,10 +167,6 @@ void Grid::resetSnake(int index){
         this->setCell(part.first, part.second, EMPTY, index);
     }
     this->snakes[index].emptySnake();
-}
-
-void Grid::resetSnakes(){
-    this->snakes.clear();
 }
 
 void Grid::addWall(const COORDS topLeft, const COORDS bottomRight){

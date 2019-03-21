@@ -15,7 +15,7 @@ class Grid{
 		Grid(const COORDTYPE width=DEFAULTWIDTH, const COORDTYPE height=DEFAULTHEIGHT);
 
 		void addSnake(const int length=DEFAULTSNAKE, const AIType ai=NAIVE, const int lives=-1);
-		size_t moveSnakes();
+		int moveSnakes();
 		void resetGrid();
 		void resetSnake(int index);
 		void killSnake(int index);

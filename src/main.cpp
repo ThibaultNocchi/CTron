@@ -16,6 +16,8 @@ int main(int argc, char* argv[]){
 
 	std::unordered_map<u_int64_t, int> mymap;
 
+	int ending;
+
 	double begin = omp_get_wtime();
 	mymap[grid.getHash()]++;
 	
@@ -23,13 +25,26 @@ int main(int argc, char* argv[]){
 		
 		grid.setNewDirections();
 
-		grid.moveSnakes();
+		ending = grid.moveSnakes();
 		mymap[grid.getHash()]++;
+
+		if(ending >= 0) break;
 
 	}
 
-	grid.displayGridBasic();
 	std::cout << omp_get_wtime() - begin << std::endl;
+
+	grid.displayGridBasic();
+	switch(ending){
+		case -2:
+			std::cout << "Every snake died." << std::endl;
+			break;
+		case -1:
+			std::cout << "No winner." << std::endl;
+			break;
+		default:
+			std::cout << "Snake n°" << ending << " won!" << std::endl;
+	}
 
 	// for(auto el : mymap){
 	// 	if(el.second > 1) std::cout << el.second << " times: " << el.first << std::endl;

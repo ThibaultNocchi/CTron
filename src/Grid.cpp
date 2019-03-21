@@ -54,7 +54,7 @@ void Grid::addSnake(const int length, const AIType ai, const int lives){
 }
 
 // 0,0 is considered to be top left.
-size_t Grid::moveSnakes(){
+int Grid::moveSnakes(){
 
     // Calculating future new head, and removing the end of the tail if needed.
     for(size_t i = 0; i < this->snakes.size(); ++i){

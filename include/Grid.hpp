@@ -7,14 +7,12 @@
 #include <memory>
 #include "Definitions.hpp"
 #include "Snake.hpp"
-#include "SnakeNaive.hpp"
-#include "SnakeMCTS.hpp"
 
 class Grid{
 	public:
 		Grid(const COORDTYPE width=DEFAULTWIDTH, const COORDTYPE height=DEFAULTHEIGHT);
 
-		void addSnake(const int length=DEFAULTSNAKE, const AIType ai=NAIVE, const int lives=-1);
+		void addSnake(const int length=DEFAULTSNAKE, const int lives=-1);
 		int moveSnakes();
 		void resetGrid();
 		void resetSnake(int index);
@@ -36,7 +34,7 @@ class Grid{
 		int getIndex(const COORDTYPE x, const COORDTYPE y) const;
 		State getCell(const COORDTYPE x, const COORDTYPE y) const;
 		COORDS getRandomEmptyCell() const;
-		const std::vector<std::shared_ptr<Snake>>& getSnakes() const;
+		const std::vector<Snake>& getSnakes() const;
 		int getNumberAliveSnakes() const;
 		const COORDS& getBonus() const;
 		const std::vector<State>& getCells() const;
@@ -53,7 +51,7 @@ class Grid{
 		COORDTYPE width;
 		COORDTYPE height;
 		std::vector<State> cells;
-		std::vector<std::shared_ptr<Snake>> snakes;
+		std::vector<Snake> snakes;
 		COORDS bonus;
 		int aliveSnakes;
 		std::vector<std::vector<u_int64_t>> hashes;

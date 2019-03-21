@@ -12,7 +12,7 @@ class Snake{
 		void emptySnake();
 		void incrementSize();
 
-		virtual void setNewDirection() = 0;
+		void setNewDirection();
 
 		void decrementLives();
 
@@ -42,7 +42,6 @@ class Snake{
 		std::deque<COORDS> body;
 		COORDS futureHead;
 		bool alive;
-		AIType ai;
 		int lives;
 };
 

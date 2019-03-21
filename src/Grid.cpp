@@ -333,9 +333,9 @@ void Grid::setDirection(size_t index, Direction dir){
     this->snakes[index].setDirection(dir);
 }
 
-void Grid::setNewDirections(){
+void Grid::setNewRandomDirections(){
     for(size_t i = 0; i < this->snakes.size(); ++i){
-        this->snakes[i].setNewDirection();
+        this->snakes[i].setNewRandomDirection();
     }
 }
 

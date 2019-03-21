@@ -26,7 +26,7 @@ void Snake::incrementSize(){
     ++this->adultLength;
 }
 
-void Snake::setNewDirection(){
+void Snake::setNewRandomDirection(){
   char result = std::rand() % 4;
   auto dir = this->getDirection();
   switch (result) {

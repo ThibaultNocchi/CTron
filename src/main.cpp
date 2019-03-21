@@ -23,7 +23,7 @@ int main(int argc, char* argv[]){
 	
 	for(int i = 0; i < 100000; ++i){
 		
-		grid.setNewDirections();
+		grid.setNewRandomDirections();
 
 		ending = grid.moveSnakes();
 		mymap[grid.getHash()]++;

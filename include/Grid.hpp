@@ -12,7 +12,7 @@ class Grid{
 	public:
 		Grid(const COORDTYPE width=DEFAULTWIDTH, const COORDTYPE height=DEFAULTHEIGHT);
 
-		void addSnake(const int length=DEFAULTSNAKE, const int lives=-1);
+		size_t addSnake(const int length=DEFAULTSNAKE, const int lives=-1);
 		int moveSnakes();
 		void resetGrid();
 		void resetSnake(int index);

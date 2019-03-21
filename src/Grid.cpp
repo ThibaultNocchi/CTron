@@ -23,7 +23,7 @@ Grid::Grid(const COORDTYPE width, const COORDTYPE height) {
 
 }
 
-void Grid::addSnake(const int length, const int lives){
+size_t Grid::addSnake(const int length, const int lives){
 
     for(size_t i = 0; i < this->snakesHashes.size(); ++i){
         
@@ -41,6 +41,8 @@ void Grid::addSnake(const int length, const int lives){
 
     this->setCell(newPosition.first, newPosition.second, HEAD, this->snakes.size() - 1);
     ++this->aliveSnakes;
+
+    return this->getSnakes().size() - 1;
 
 }
 

@@ -156,8 +156,8 @@ int Grid::moveSnakes(){
     }
 
     if(leftAlive == 1) return winnerId;
-    else if(leftAlive == 0) return -2;
-    return -1;
+    else if(leftAlive == 0) return -1;
+    return -2;
     
 }
 

@@ -4,31 +4,28 @@
 #include "Definitions.hpp"
 #include "Grid.hpp"
 #include "Snake.hpp"
+#include "BrainMCTS.hpp"
 
 int main(int argc, char* argv[]){
 	
 	auto grid = Grid(10, 10);
 	grid.addWall(std::pair<COORDTYPE, COORDTYPE>(2,2), std::pair<COORDTYPE, COORDTYPE>(4,4));
-	grid.addSnake(3);
+	auto player = grid.addSnake(3);
 	grid.addSnake(3);
 
 	grid.displayGridBasic();
 
-	std::unordered_map<u_int64_t, int> mymap;
-
 	int ending;
 
 	double begin = omp_get_wtime();
-	mymap[grid.getHash()]++;
 	
 	for(int i = 0; i < 100000; ++i){
 		
 		grid.setNewRandomDirections();
 
 		ending = grid.moveSnakes();
-		mymap[grid.getHash()]++;
 
-		if(ending >= 0) break;
+		if(ending >= -1) break;
 
 	}
 
@@ -36,19 +33,15 @@ int main(int argc, char* argv[]){
 
 	grid.displayGridBasic();
 	switch(ending){
-		case -2:
+		case -1:
 			std::cout << "Every snake died." << std::endl;
 			break;
-		case -1:
+		case -2:
 			std::cout << "No winner." << std::endl;
 			break;
 		default:
 			std::cout << "Snake n°" << ending << " won!" << std::endl;
 	}
-
-	// for(auto el : mymap){
-	// 	if(el.second > 1) std::cout << el.second << " times: " << el.first << std::endl;
-	// }
 
 	return 0;
 }

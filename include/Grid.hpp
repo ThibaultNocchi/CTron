@@ -42,7 +42,9 @@ class Grid{
 
 		void setCell(const COORDTYPE x, const COORDTYPE y, State value, size_t snakeID = 0);
 		void setDirection(size_t index, Direction dir);
+		Direction setRandomDirection(size_t index);
 		void setNewRandomDirections();
+		void setNewRandomDirectionsExcept(size_t index);
 
 		bool operator<(const Grid& other) const;
 		bool operator==(const Grid& other) const;

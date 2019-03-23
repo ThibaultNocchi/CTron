@@ -26,27 +26,30 @@ void Snake::incrementSize(){
     ++this->adultLength;
 }
 
-void Snake::setNewRandomDirection(){
+Direction Snake::setNewRandomDirection(){
   char result = std::rand() % 4;
   auto dir = this->getDirection();
+  Direction future;
   switch (result) {
   case 0:
     if (dir != DOWN)
-      this->setDirection(UP);
+      future = UP;
     break;
   case 1:
     if (dir != UP)
-      this->setDirection(DOWN);
+      future = DOWN;
     break;
   case 2:
     if (dir != RIGHT)
-      this->setDirection(LEFT);
+      future = LEFT;
     break;
   case 3:
     if (dir != LEFT)
-      this->setDirection(RIGHT);
+      future = RIGHT;
     break;
   }
+  this->setDirection(future);
+  return future;
 }
 
 void Snake::decrementLives(){

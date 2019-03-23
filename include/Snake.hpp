@@ -12,7 +12,7 @@ class Snake{
 		void emptySnake();
 		void incrementSize();
 
-		void setNewRandomDirection();
+		Direction setNewRandomDirection();
 
 		void decrementLives();
 

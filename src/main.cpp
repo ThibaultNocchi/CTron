@@ -4,39 +4,98 @@
 #include "Snake.hpp"
 #include <omp.h>
 #include <unistd.h>
+#include <SFML/Graphics.hpp>
 
 int main(int argc, char *argv[]) {
 
-  // auto grid = Grid(10, 10);
-  // grid.addWall(std::pair<COORDTYPE, COORDTYPE>(2,2), std::pair<COORDTYPE,
-  // COORDTYPE>(4,4)); auto player = grid.addSnake(3, 1); grid.addSnake(3, 1);
+  //  ============ MODE PARTIE CLASSIQUE =========================
+  
+  sf::RenderWindow window(sf::VideoMode(800, 600), "CTron");
+  auto grid = Grid(10, 10);
+  grid.addWall(std::pair<COORDTYPE, COORDTYPE>(2,2), std::pair<COORDTYPE,
+  COORDTYPE>(4,4)); auto player = grid.addSnake(3, 1); grid.addSnake(3, 1);
 
-  // auto brain0 = BrainMCTS(player, grid);
+  auto brain0 = BrainMCTS(player, grid);
 
-  // grid.displayGridBasic();
+  grid.displayGridBasic();
 
-  // int ending;
-  // double begin = omp_get_wtime();
+  int ending;
+  double begin = omp_get_wtime();
 
-  // int rounds = 0;
+  int rounds = 0;
 
-  // for(int i = 0; i < 100000; ++i){
+  std::vector<sf::RectangleShape> RecToDraw;
+  std::vector<sf::CircleShape> CirclesToDraw;
 
-  // 	for(int j = 0; j < MC_ITERATIONS; ++j){
-  // 		brain0.explore(grid);
-  // 	}
+  while (window.isOpen()){
+	  sf::Event event;
+	  while (window.pollEvent(event)){
+		  if (event.type == sf::Event::Closed)
+			  window.close();
+	  }
+	  for(int i = 0; i < 100000; ++i){
 
-  // 	grid.setNewRandomDirectionsExcept(0);
-  // 	grid.setDirection(0, brain0.selectDirection(grid));
-  // 	ending = grid.moveSnakes();
-  // 	if(ending >= -1) break;
+		  for(int j = 0; j < MC_ITERATIONS; ++j){
+			  brain0.explore(grid);
+		  }
+		  grid.setNewRandomDirectionsExcept(0);
+		  grid.setDirection(0, brain0.selectDirection(grid));
+		  ending = grid.moveSnakes();
+		  if(ending >= -1) break;
 
-  // 	grid.displayGridBasic();
-  // 	sleep(1);
+		  // Affichage
+		  window.clear(sf::Color::White);
+		  for(COORDTYPE j=0; j<grid.getWidth(); j+=1){
+			  for(COORDTYPE i=0; i<grid.getHeight(); i+=1){
+				  State s = grid.getCell(i,j);
+				  if(s == WALL){
+					  sf::RectangleShape rec(sf::Vector2f(50.f, 50.f));
+					  rec.setPosition(i*50.f, j*50.f);
+					  rec.setFillColor(sf::Color::Black);
+					  RecToDraw.push_back(rec);
+				  }
+				  else if (s == BONUS){
+					  sf::CircleShape circle(24.5f);
+					  circle.setPosition(i*50.f, j*50.f);
+					  circle.setFillColor(sf::Color::Red);
+					  CirclesToDraw.push_back(circle);
+				  }else if (s == HEAD || s == SNAKE){
+					  sf::RectangleShape shape;
+					  shape = sf::RectangleShape(sf::Vector2f(50.f, 50.f));
+					  if(s == HEAD) shape.rotate(45.f);
+					  shape.setPosition(sf::Vector2f(50.f, 50.f));
 
-  // 	++rounds;
+					  auto snakes = grid.getSnakes();
+					  COORDS c(i,j);
+					  for(size_t k=0; k<snakes.size(); k+=1){
+						  auto body = snakes[k].getBody();
+						  for(size_t l=0; l<body.size(); l+=1){
+							  if(body[l] == c){
+								  switch(k){
+									  case 0: shape.setFillColor(sf::Color::Blue); break;
+									  case 1: shape.setFillColor(sf::Color::Green); break;
+									  case 2: shape.setFillColor(sf::Color::Yellow); break;
+									  case 3: shape.setFillColor(sf::Color::Cyan); break;
+								  }
+							  }
+						  }
+					  }
+					  RecToDraw.push_back(shape);
+				  }
+			  }
+		  }
+		  for(size_t i=0; i < RecToDraw.size(); i+=1) window.draw(RecToDraw[i]);
+		  for(size_t i=0; i < CirclesToDraw.size(); i+=1) window.draw(CirclesToDraw[i]);
+		  window.display();
+		  RecToDraw.clear();
+		  CirclesToDraw.clear();
+		  sleep(1);
+		  ++rounds;
 
-  // }
+	  }
+  }
+
+  return 0;
 
   // std::cout << omp_get_wtime() - begin << std::endl;
 
@@ -53,37 +112,38 @@ int main(int argc, char *argv[]) {
   // }
 
   // std::cout << rounds << " rounds." << std::endl;
+  
+  //  ============ MODE NOMBRE DE VICTOIRE =========================
+  // int victories = 0;
 
-  int victories = 0;
+  // for (int game = 0; game < 100; ++game) {
 
-  for (int game = 0; game < 100; ++game) {
+  //   auto grid = Grid(10, 10);
+  //   grid.addWall(std::pair<COORDTYPE, COORDTYPE>(2, 2),
+  //                std::pair<COORDTYPE, COORDTYPE>(4, 4));
+  //   auto player = grid.addSnake(3, 1);
+  //   grid.addSnake(3, 1);
 
-    auto grid = Grid(10, 10);
-    grid.addWall(std::pair<COORDTYPE, COORDTYPE>(2, 2),
-                 std::pair<COORDTYPE, COORDTYPE>(4, 4));
-    auto player = grid.addSnake(3, 1);
-    grid.addSnake(3, 1);
+  //   auto brain0 = BrainMCTS(player, grid);
 
-    auto brain0 = BrainMCTS(player, grid);
+  //   int ending = -2;
 
-    int ending = -2;
+  //   while (ending < -1) {
 
-    while (ending < -1) {
+  //     for (int j = 0; j < MC_ITERATIONS; ++j) {
+  //       brain0.explore(grid);
+  //     }
 
-      for (int j = 0; j < MC_ITERATIONS; ++j) {
-        brain0.explore(grid);
-      }
+  //     grid.setNewRandomDirectionsExcept(0);
+  //     grid.setDirection(0, brain0.selectDirection(grid));
+  //     ending = grid.moveSnakes();
+  //   }
 
-      grid.setNewRandomDirectionsExcept(0);
-      grid.setDirection(0, brain0.selectDirection(grid));
-      ending = grid.moveSnakes();
-    }
+  //       if(ending == 0) ++victories;
 
-	if(ending == 0) ++victories;
+  // }
 
-  }
+  // std::cout << victories << " victories for our snake!" << std::endl;
 
-  std::cout << victories << " victories for our snake!" << std::endl;
-
-  return 0;
+  // return 0;
 }

@@ -8,7 +8,7 @@ SRCDIR = src
 TESTDIR = tests
 BINDIR = bin
 
-LIBS = -fopenmp
+LIBS = -fopenmp -lsfml-graphics -lsfml-window -lsfml-system
 
 SRCFILES = $(wildcard $(SRCDIR)/*.cpp)
 OBJFILES = $(patsubst $(SRCDIR)/%.cpp,$(ODIR)/%.o,$(SRCFILES))

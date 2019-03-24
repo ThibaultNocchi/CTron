@@ -72,7 +72,12 @@ int BrainMCTS::rollout(Grid& g){
 
     if(ending == -1){ value = REWARD_DRAW; }
     else if(ending == (int)this->snakeIndex){ value = REWARD_VICTORY; }
-    else{ value = REWARD_DEFEAT; }
+    else if(ending >= 0){ value = REWARD_DEFEAT; } // Another snake won
+    else{
+        Snake mySnake = g.getSnakes()[this->snakeIndex];
+        value = mySnake.getCurrentLength() - mySnake.getBaseLength(); // Reward is the number of extra tails.
+        value *= 2; // Twice
+    } // Game not over.
 
     return value;
 

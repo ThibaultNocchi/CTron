@@ -131,12 +131,12 @@ Direction BrainMCTS::getDirectionToExploreFrom(u_int64_t hash){
     if(this->mcts[hash][UP].second >= 0){
         if(this->mcts[hash][UP].second == 0) return UP;
         maxDirection = UP;
-        maxUCB = this->ucb(this->mcts[hash][UP].first, this->mcts[hash][UP].first, n);
+        maxUCB = this->ucb(this->mcts[hash][UP].second, this->mcts[hash][UP].second, n);
     }
 
     if(this->mcts[hash][DOWN].second >= 0){
         if(this->mcts[hash][DOWN].second == 0) return DOWN;
-        auto ucb = this->ucb(this->mcts[hash][DOWN].first, this->mcts[hash][DOWN].first, n);
+        auto ucb = this->ucb(this->mcts[hash][DOWN].second, this->mcts[hash][DOWN].second, n);
         if(ucb > maxUCB || this->mcts[hash][UP].second >= 0){
             maxDirection = DOWN;
             maxUCB = ucb;
@@ -145,7 +145,7 @@ Direction BrainMCTS::getDirectionToExploreFrom(u_int64_t hash){
 
     if(this->mcts[hash][LEFT].second >= 0){
         if(this->mcts[hash][LEFT].second == 0) return LEFT;
-        auto ucb = this->ucb(this->mcts[hash][LEFT].first, this->mcts[hash][LEFT].first, n);
+        auto ucb = this->ucb(this->mcts[hash][LEFT].second, this->mcts[hash][LEFT].second, n);
         if(ucb > maxUCB){
             maxDirection = LEFT;
             maxUCB = ucb;
@@ -154,7 +154,7 @@ Direction BrainMCTS::getDirectionToExploreFrom(u_int64_t hash){
 
     if(this->mcts[hash][RIGHT].second >= 0){
         if(this->mcts[hash][RIGHT].second == 0) return RIGHT;
-        auto ucb = this->ucb(this->mcts[hash][RIGHT].first, this->mcts[hash][RIGHT].first, n);
+        auto ucb = this->ucb(this->mcts[hash][RIGHT].second, this->mcts[hash][RIGHT].second, n);
         if(ucb > maxUCB){
             maxDirection = RIGHT;
             maxUCB = ucb;

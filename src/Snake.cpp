@@ -29,24 +29,24 @@ void Snake::incrementSize(){
 Direction Snake::setNewRandomDirection(){
   char result = std::rand() % 4;
   auto dir = this->getDirection();
-  Direction future;
+  Direction future = dir;
   switch (result) {
-  case 0:
-    if (dir != DOWN)
-      future = UP;
-    break;
-  case 1:
-    if (dir != UP)
-      future = DOWN;
-    break;
-  case 2:
-    if (dir != RIGHT)
-      future = LEFT;
-    break;
-  case 3:
-    if (dir != LEFT)
-      future = RIGHT;
-    break;
+    case 0:
+      if (dir != DOWN)
+        future = UP;
+      break;
+    case 1:
+      if (dir != UP)
+        future = DOWN;
+      break;
+    case 2:
+      if (dir != RIGHT)
+        future = LEFT;
+      break;
+    case 3:
+      if (dir != LEFT)
+        future = RIGHT;
+      break;
   }
   this->setDirection(future);
   return future;

@@ -118,7 +118,7 @@ int BrainMCTS::explore(Grid& g){
 
 }
 
-double BrainMCTS::ucb(int v, int ni, int n){
+double BrainMCTS::ucb(double v, double ni, double n){
     return v + 2*sqrt(log(n) / ni);
 }
 

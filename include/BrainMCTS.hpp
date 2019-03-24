@@ -20,7 +20,7 @@ class BrainMCTS{
         void startExplorationFrom(Grid g);
         Direction selectDirection(const Grid& g);
 
-        double ucb(int v, int ni, int n);
+        double ucb(double v, double ni, double n);
 
         Direction getDirectionToExploreFrom(u_int64_t hash);
 

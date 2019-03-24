@@ -19,18 +19,20 @@ int main(int argc, char* argv[]){
 
 	int ending;
 	double begin = omp_get_wtime();
+
+	int rounds = 0;
 	
 	for(int i = 0; i < 100000; ++i){
 		
-		for(int j = 0; j < 50; ++j){
-			brain0.startExplorationFrom(grid);
+		for(int j = 0; j < MC_ITERATIONS; ++j){
+			brain0.explore(grid);
 		}
 
 		grid.setNewRandomDirectionsExcept(0);
 		grid.setDirection(0, brain0.selectDirection(grid));
 		ending = grid.moveSnakes();
 		if(ending >= -1) break;
-		grid.displayGridBasic();
+		++rounds;
 
 	}
 
@@ -47,6 +49,8 @@ int main(int argc, char* argv[]){
 		default:
 			std::cout << "Snake n°" << ending << " won!" << std::endl;
 	}
+
+	std::cout << rounds << " rounds." << std::endl;
 
 	return 0;
 }

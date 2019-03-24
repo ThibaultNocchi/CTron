@@ -16,8 +16,7 @@ class BrainMCTS{
         void displayFromHash(u_int64_t hash);
         int rollout(Grid& g);
         int countRolls(u_int64_t hash);
-        int explore(Grid& g);
-        void startExplorationFrom(Grid g);
+        int explore(Grid g);
         Direction selectDirection(const Grid& g);
 
         double ucb(double v, double ni, double n);

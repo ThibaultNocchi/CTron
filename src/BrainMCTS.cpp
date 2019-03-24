@@ -84,7 +84,7 @@ int BrainMCTS::countRolls(u_int64_t hash){
     return n;
 }
 
-int BrainMCTS::explore(Grid& g){
+int BrainMCTS::explore(Grid g){
 
     if(this->mcts.find(g.getHash()) == this->mcts.end()) this->initFromGrid(g);
 
@@ -103,7 +103,7 @@ int BrainMCTS::explore(Grid& g){
 
     int i = 0;
 
-    while(this->mcts[current][toExplore].second != 0 && i++ < MAX_MC_ITERATIONS){
+    while(this->mcts[current][toExplore].second != 0 && i++ < MAX_MC_DEPTH){
         g.setNewRandomDirectionsExcept(this->snakeIndex);
         g.setDirection(this->snakeIndex, toExplore);
         g.moveSnakes();
@@ -171,10 +171,6 @@ Direction BrainMCTS::getDirectionToExploreFrom(u_int64_t hash){
 
     return maxDirection;
 
-}
-
-void BrainMCTS::startExplorationFrom(Grid g){
-    this->explore(g);
 }
 
 Direction BrainMCTS::selectDirection(const Grid& g){

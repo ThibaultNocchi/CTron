@@ -10,19 +10,24 @@
 class BrainMCTS{
 
     public:
-        BrainMCTS(const size_t index, const Grid* g);
+        BrainMCTS(const size_t index, const Grid& g);
 
-        void initFromGrid();
+        void initFromGrid(const Grid& g);
         void displayFromHash(u_int64_t hash);
-        int rollout(Grid g);
+        int rollout(Grid& g);
+        int countRolls(u_int64_t hash);
+        int explore(Grid& g);
+        void startExplorationFrom(Grid g);
+        Direction selectDirection(const Grid& g);
 
-        Direction getSnakeCurrentDirection();
+        double ucb(int v, int ni, int n);
+
+        Direction getDirectionToExploreFrom(u_int64_t hash);
 
         void setSnakeIndex(const size_t index);
 
     private:
         size_t snakeIndex;
         std::unordered_map<u_int64_t, std::vector<std::pair<int, int>>> mcts;
-        const Grid* grid;
 
 };

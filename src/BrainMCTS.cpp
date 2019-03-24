@@ -137,7 +137,7 @@ Direction BrainMCTS::getDirectionToExploreFrom(u_int64_t hash){
     if(this->mcts[hash][DOWN].second >= 0){
         if(this->mcts[hash][DOWN].second == 0) return DOWN;
         auto ucb = this->ucb(this->mcts[hash][DOWN].first, this->mcts[hash][DOWN].second, n);
-        if(ucb > maxUCB || this->mcts[hash][UP].second >= 0){
+        if(ucb > maxUCB || this->mcts[hash][UP].second < 0){
             maxDirection = DOWN;
             maxUCB = ucb;
         }

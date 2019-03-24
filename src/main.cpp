@@ -1,6 +1,5 @@
-#include <cstdlib>
 #include <omp.h>
-#include <unordered_map>
+#include <unistd.h>
 #include "Definitions.hpp"
 #include "Grid.hpp"
 #include "Snake.hpp"
@@ -32,6 +31,10 @@ int main(int argc, char* argv[]){
 		grid.setDirection(0, brain0.selectDirection(grid));
 		ending = grid.moveSnakes();
 		if(ending >= -1) break;
+
+		grid.displayGridBasic();
+		sleep(1);
+
 		++rounds;
 
 	}

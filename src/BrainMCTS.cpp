@@ -88,33 +88,41 @@ int BrainMCTS::explore(Grid& g){
 
     if(this->mcts.find(g.getHash()) == this->mcts.end()) this->initFromGrid(g);
 
-    auto toExplore = this->getDirectionToExploreFrom(g.getHash());
+    std::vector<std::pair<u_int64_t, Direction>> toPropagate;
+    toPropagate.clear();
+
     auto current = g.getHash();
-    
-    if(this->mcts[current][toExplore].second == 0){
+    auto toExplore = this->getDirectionToExploreFrom(current);
 
-        // this->initFromGrid(g);
+    std::pair<u_int64_t, Direction> toInsert;
+    toInsert.first = current;
+    toInsert.second = toExplore;
+    toPropagate.push_back(toInsert);
+
+    int score;
+
+    int i = 0;
+
+    while(this->mcts[current][toExplore].second != 0 && i++ < MAX_MC_ITERATIONS){
         g.setNewRandomDirectionsExcept(this->snakeIndex);
         g.setDirection(this->snakeIndex, toExplore);
         g.moveSnakes();
-        auto result = this->rollout(g);
-        this->mcts[current][toExplore].first += result;
-        ++this->mcts[current][toExplore].second;
-        return result;
-
-    }else{
-
-        g.setNewRandomDirectionsExcept(this->snakeIndex);
-        g.setDirection(this->snakeIndex, toExplore);
-        g.moveSnakes();
-
-        auto result = this->explore(g);
-        this->mcts[current][toExplore].first += result;
-        ++this->mcts[current][toExplore].second;
-
-        return result;
-
+        current = g.getHash();
+        if(this->mcts.find(current) == this->mcts.end()) this->initFromGrid(g);
+        toExplore = this->getDirectionToExploreFrom(current);
+        toInsert.first = current;
+        toInsert.second = toExplore;
+        toPropagate.push_back(toInsert);
     }
+
+    score = this->rollout(g);
+
+    for(auto inserts : toPropagate){
+        ++this->mcts[inserts.first][inserts.second].second;
+        this->mcts[inserts.first][inserts.second].first += score;
+    }
+
+    return 0;
 
 }
 

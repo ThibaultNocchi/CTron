@@ -17,6 +17,8 @@ enum State {
 using COORDTYPE = char;
 using COORDS = std::pair<COORDTYPE, COORDTYPE>;
 
-#define REWARD_DRAW -10;
-#define REWARD_DEFEAT -20;
-#define REWARD_VICTORY 20;
+#define REWARD_DRAW -10
+#define REWARD_DEFEAT -20
+#define REWARD_VICTORY 20
+
+#define MAX_MC_ITERATIONS 2000

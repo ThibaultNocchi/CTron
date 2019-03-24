@@ -37,6 +37,8 @@ void BrainMCTS::initFromGrid(const Grid& g){
         case RIGHT:
             toBan = LEFT;
             break;
+        default:
+            toBan  = UP;
     }
     this->mcts[hash][toBan].second = -1;
 
@@ -133,7 +135,7 @@ double BrainMCTS::ucb(double v, double ni, double n){
 Direction BrainMCTS::getDirectionToExploreFrom(u_int64_t hash){
 
     Direction maxDirection;
-    double maxUCB;
+    double maxUCB = 0;
     int n = this->countRolls(hash);
 
     if(this->mcts[hash][UP].second >= 0){
@@ -145,7 +147,7 @@ Direction BrainMCTS::getDirectionToExploreFrom(u_int64_t hash){
     if(this->mcts[hash][DOWN].second >= 0){
         if(this->mcts[hash][DOWN].second == 0) return DOWN;
         auto ucb = this->ucb(this->mcts[hash][DOWN].first, this->mcts[hash][DOWN].second, n);
-        if(ucb > maxUCB || this->mcts[hash][UP].second < 0){
+        if(this->mcts[hash][UP].second < 0 || ucb > maxUCB){
             maxDirection = DOWN;
             maxUCB = ucb;
         }

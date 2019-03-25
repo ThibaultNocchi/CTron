@@ -77,6 +77,7 @@ int BrainMCTS::rollout(Grid& g){
         Snake mySnake = g.getSnakes()[this->snakeIndex];
         value = mySnake.getCurrentLength() - mySnake.getBaseLength(); // Reward is the number of extra tails.
         value *= 2; // Twice
+        value += 5*(g.getSnakes().size() - g.getNumberAliveSnakes());
     } // Game not over.
 
     return value;

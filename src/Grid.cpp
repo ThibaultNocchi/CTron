@@ -113,10 +113,12 @@ int Grid::moveSnakes(){
             }else if(cellValue == EMPTY){
 
                 for(size_t j = (i+1); j < this->snakes.size(); ++j){
-                    COORDS newHead2 = this->snakes[j].getFutureHead();
-                    if(newHead.first == newHead2.first && newHead.second == newHead2.second){
-                        this->killSnake(i);
-                        this->killSnake(j);
+                    if(this->snakes[j].getAlive()){
+                        COORDS newHead2 = this->snakes[j].getFutureHead();
+                        if(newHead.first == newHead2.first && newHead.second == newHead2.second){
+                            this->killSnake(i);
+                            this->killSnake(j);
+                        }
                     }
                 }
 
@@ -180,10 +182,10 @@ void Grid::resetSnake(int index){
 }
 
 void Grid::killSnake(int index){
-  this->snakes[index].setAlive(false);
-  this->resetSnake(index);
-  this->snakes[index].decrementLives();
-  --this->aliveSnakes;
+    this->snakes[index].setAlive(false);
+    this->resetSnake(index);
+    this->snakes[index].decrementLives();
+    --this->aliveSnakes;
 }
 
 void Grid::addWall(const COORDS topLeft, const COORDS bottomRight){

@@ -80,6 +80,7 @@ int main(int argc, char *argv[]) {
     }
 
 	if(ending == 0) ++victories;
+  std::cout << "Round " << game + 1 << " ended!" << std::endl;
 
   }
 

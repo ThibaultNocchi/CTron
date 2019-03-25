@@ -52,50 +52,54 @@ int Grid::moveSnakes(){
     // Calculating future new head, and removing the end of the tail if needed.
     for(size_t i = 0; i < this->snakes.size(); ++i){
         
-        COORDS head = this->snakes[i].getHead();
+        if(this->snakes[i].getAlive()){
 
-        switch(this->snakes[i].getDirection()){
-            case DOWN:
-                if(head.first == this->getHeight() - 1){
-                    head.first = 0;
-                }else{
-                    head.first += 1;
-                }
-                break;
+            COORDS head = this->snakes[i].getHead();
+
+            switch(this->snakes[i].getDirection()){
+                case DOWN:
+                    if(head.first == this->getHeight() - 1){
+                        head.first = 0;
+                    }else{
+                        head.first += 1;
+                    }
+                    break;
+                
+                case UP:
+                    if(head.first == 0){
+                        head.first = this->getHeight() - 1;
+                    }else{
+                        head.first -= 1;
+                    }
+                    break;
+
+                case LEFT:
+                    if(head.second == 0){
+                        head.second = this->getWidth() - 1;
+                    }else{
+                        head.second -= 1;
+                    }
+                    break;
+
+                case RIGHT:
+                    if(head.second == this->getWidth() - 1){
+                        head.second = 0;
+                    }else{
+                        head.second += 1;
+                    }
+                    break;
             
-            case UP:
-                if(head.first == 0){
-                    head.first = this->getHeight() - 1;
-                }else{
-                    head.first -= 1;
-                }
-                break;
+                default:
+                    break;
+            }
 
-            case LEFT:
-                if(head.second == 0){
-                    head.second = this->getWidth() - 1;
-                }else{
-                    head.second -= 1;
-                }
-                break;
+            this->snakes[i].setFutureHead(head);
+            if(this->snakes[i].getCurrentLength() == this->snakes[i].getAdultLength()){
+                COORDS tail = this->snakes[i].getTail();
+                this->setCell(tail.first, tail.second, EMPTY, i);
+                this->snakes[i].removeTail();
+            }
 
-            case RIGHT:
-                if(head.second == this->getWidth() - 1){
-                    head.second = 0;
-                }else{
-                    head.second += 1;
-                }
-                break;
-        
-            default:
-                break;
-        }
-
-        this->snakes[i].setFutureHead(head);
-        if(this->snakes[i].getCurrentLength() == this->snakes[i].getAdultLength()){
-            COORDS tail = this->snakes[i].getTail();
-            this->setCell(tail.first, tail.second, EMPTY, i);
-            this->snakes[i].removeTail();
         }
 
     }

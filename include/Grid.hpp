@@ -63,13 +63,3 @@ class Grid{
 		static std::mt19937_64 eng;
 		static std::uniform_int_distribution<u_int64_t> distr;
 };
-
-namespace std {
-template <> class hash<Grid> {
-public:
-  size_t operator()(const Grid &g) const {
-      return 1;
-    }
-};
-
-}

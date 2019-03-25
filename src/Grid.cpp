@@ -55,43 +55,7 @@ int Grid::moveSnakes(){
         if(this->snakes[i].getAlive()){
 
             COORDS head = this->snakes[i].getHead();
-
-            switch(this->snakes[i].getDirection()){
-                case DOWN:
-                    if(head.first == this->getHeight() - 1){
-                        head.first = 0;
-                    }else{
-                        head.first += 1;
-                    }
-                    break;
-                
-                case UP:
-                    if(head.first == 0){
-                        head.first = this->getHeight() - 1;
-                    }else{
-                        head.first -= 1;
-                    }
-                    break;
-
-                case LEFT:
-                    if(head.second == 0){
-                        head.second = this->getWidth() - 1;
-                    }else{
-                        head.second -= 1;
-                    }
-                    break;
-
-                case RIGHT:
-                    if(head.second == this->getWidth() - 1){
-                        head.second = 0;
-                    }else{
-                        head.second += 1;
-                    }
-                    break;
-            
-                default:
-                    break;
-            }
+            this->calculateFutureHead(head, i);
 
             this->snakes[i].setFutureHead(head);
             if(this->snakes[i].getCurrentLength() == this->snakes[i].getAdultLength()){
@@ -190,6 +154,47 @@ void Grid::killSnake(int index){
     this->resetSnake(index);
     this->snakes[index].decrementLives();
     --this->aliveSnakes;
+}
+
+void Grid::calculateFutureHead(COORDS& head, size_t index){
+
+  switch (this->snakes[index].getDirection()) {
+  case DOWN:
+    if (head.first == this->getHeight() - 1) {
+      head.first = 0;
+    } else {
+      head.first += 1;
+    }
+    break;
+
+  case UP:
+    if (head.first == 0) {
+      head.first = this->getHeight() - 1;
+    } else {
+      head.first -= 1;
+    }
+    break;
+
+  case LEFT:
+    if (head.second == 0) {
+      head.second = this->getWidth() - 1;
+    } else {
+      head.second -= 1;
+    }
+    break;
+
+  case RIGHT:
+    if (head.second == this->getWidth() - 1) {
+      head.second = 0;
+    } else {
+      head.second += 1;
+    }
+    break;
+
+  default:
+    break;
+  }
+  
 }
 
 void Grid::addWall(const COORDS topLeft, const COORDS bottomRight){

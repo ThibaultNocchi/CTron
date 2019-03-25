@@ -240,7 +240,10 @@ void Grid::displayGridBasic(){
                 }
 
                 case HEAD:
-                    std::cout << "H";
+                    if(this->snakes[0].getHead().first == x && this->snakes[0].getHead().second == y)
+                        std::cout << "T";
+                    else
+                        std::cout << "H";
                     break;
 
 

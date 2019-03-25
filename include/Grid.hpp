@@ -17,7 +17,7 @@ class Grid{
 		void resetGrid();
 		void resetSnake(int index);
 		void killSnake(int index);
-		void calculateFutureHead(COORDS& head, size_t index);
+		COORDS calculateFutureHead(size_t index);
 
 		void addWall(const COORDS topLeft, const COORDS bottomRight);
 

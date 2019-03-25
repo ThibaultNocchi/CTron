@@ -54,8 +54,7 @@ int Grid::moveSnakes(){
         
         if(this->snakes[i].getAlive()){
 
-            COORDS head = this->snakes[i].getHead();
-            this->calculateFutureHead(head, i);
+            COORDS head = this->calculateFutureHead(i);
 
             this->snakes[i].setFutureHead(head);
             if(this->snakes[i].getCurrentLength() == this->snakes[i].getAdultLength()){
@@ -156,8 +155,9 @@ void Grid::killSnake(int index){
     --this->aliveSnakes;
 }
 
-void Grid::calculateFutureHead(COORDS& head, size_t index){
+COORDS Grid::calculateFutureHead(size_t index){
 
+  COORDS head = this->snakes[index].getHead();
   switch (this->snakes[index].getDirection()) {
   case DOWN:
     if (head.first == this->getHeight() - 1) {
@@ -194,7 +194,8 @@ void Grid::calculateFutureHead(COORDS& head, size_t index){
   default:
     break;
   }
-  
+
+  return head;
 }
 
 void Grid::addWall(const COORDS topLeft, const COORDS bottomRight){
@@ -355,7 +356,7 @@ Direction Grid::setRandomDirection(size_t index){
 
 void Grid::setNewRandomDirections(){
     for(size_t i = 0; i < this->snakes.size(); ++i){
-        this->snakes[i].setNewRandomDirection();
+        this->setRandomDirection(i);
     }
 }
 

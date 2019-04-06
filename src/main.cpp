@@ -59,8 +59,7 @@ int main(int argc, char *argv[]) {
   for (int game = 0; game < 100; ++game) {
 
     auto grid = Grid(10, 10);
-    grid.addWall(std::pair<COORDTYPE, COORDTYPE>(2, 2),
-                 std::pair<COORDTYPE, COORDTYPE>(4, 4));
+    // grid.addWall(std::pair<COORDTYPE, COORDTYPE>(2, 2), std::pair<COORDTYPE, COORDTYPE>(4, 4));
     auto player = grid.addSnake(3, 1);
     grid.addSnake(3, 1);
 

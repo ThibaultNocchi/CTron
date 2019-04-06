@@ -76,9 +76,8 @@ int BrainMCTS::rollout(Grid& g){
     else if(ending >= 0){ value = REWARD_DEFEAT; } // Another snake won
     else{
         Snake mySnake = g.getSnakes()[this->snakeIndex];
-        value = mySnake.getCurrentLength() - mySnake.getBaseLength(); // Reward is the number of extra tails.
-        value *= 2; // Twice
-        value += 5*(g.getSnakes().size() - g.getNumberAliveSnakes()); // Plus a multiple of killed snakes.
+        value = REWARD_BONUS(mySnake.getCurrentLength() - mySnake.getBaseLength()); // Reward is function of the number of extra tails.
+        value += REWARD_KILLS(g.getSnakes().size() - g.getNumberAliveSnakes()); // Plus a function of killed snakes.
     } // Game not over.
 
     return value;

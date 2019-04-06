@@ -82,7 +82,7 @@ int main(int argc, char *argv[]) {
     }
 
 	if(ending == 0) ++victories;
-  std::cout << "Round " << game + 1 << " ended! Score: " << victories << "/" << game + 1 << std::endl;
+  std::cout << "Round " << game + 1 << " ended in " << rounds << " rounds! Score: " << victories << "/" << game + 1 << std::endl;
   roundsNbr.push_back(rounds);
 
   }

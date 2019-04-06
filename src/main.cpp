@@ -74,7 +74,7 @@ int main(int argc, char *argv[]) {
         brain0.explore(grid);
       }
 
-      grid.setNewRandomDirectionsExcept(0);
+      grid.setNewRandomDirectionsExcept(0, true);
       grid.setDirection(0, brain0.selectDirection(grid));
       ending = grid.moveSnakes();
     }

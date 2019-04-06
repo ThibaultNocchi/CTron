@@ -350,19 +350,29 @@ void Grid::setDirection(size_t index, Direction dir){
     this->snakes[index].setDirection(dir);
 }
 
-Direction Grid::setRandomDirection(size_t index){
-    return this->snakes[index].setNewRandomDirection();
+Direction Grid::setRandomDirection(size_t index, bool noStupidMove){
+    if(!noStupidMove) return this->snakes[index].setNewRandomDirection();
+    Direction dir;
+    COORDS head;
+    State cell;
+    int i = 0;
+    do{
+        dir = this->snakes[index].setNewRandomDirection();
+        head = this->calculateFutureHead(index);
+        cell = this->getCell(head.first, head.second);
+    }while(cell != EMPTY && i++ < 3);
+    return dir;
 }
 
-void Grid::setNewRandomDirections(){
+void Grid::setNewRandomDirections(bool noStupidMove){
     for(size_t i = 0; i < this->snakes.size(); ++i){
-        this->setRandomDirection(i);
+        this->setRandomDirection(i, noStupidMove);
     }
 }
 
-void Grid::setNewRandomDirectionsExcept(size_t index){
+void Grid::setNewRandomDirectionsExcept(size_t index, bool noStupidMove){
     for(size_t i = 0; i < this->snakes.size(); ++i){
-        if(i != index) this->snakes[i].setNewRandomDirection();
+        if(i != index) this->setRandomDirection(i, noStupidMove);
     }
 }
 

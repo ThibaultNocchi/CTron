@@ -64,7 +64,8 @@ int BrainMCTS::rollout(Grid& g){
     int ending = -2;
 
     while(ending == -2){
-        g.setNewRandomDirections();
+        g.setNewRandomDirectionsExcept(this->snakeIndex, true);
+        g.setRandomDirection(this->snakeIndex, false);
         ending = g.moveSnakes();
     }
 
@@ -112,7 +113,7 @@ int BrainMCTS::explore(Grid g){
     int i = 0;
 
     while(this->mcts[current][toExplore].second != 0 && i++ < MAX_MC_DEPTH){
-        g.setNewRandomDirectionsExcept(this->snakeIndex);
+        g.setNewRandomDirectionsExcept(this->snakeIndex, true);
         g.setDirection(this->snakeIndex, toExplore);
         g.moveSnakes();
         current = g.getHash();

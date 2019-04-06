@@ -55,9 +55,11 @@ int main(int argc, char *argv[]) {
   // std::cout << rounds << " rounds." << std::endl;
 
   int victories = 0;
+  std::vector<int> roundsNbr;
 
-  for (int game = 0; game < 100; ++game) {
+  for (int game = 0; game < 10; ++game) {
 
+    int rounds = 0;
     auto grid = Grid(10, 10);
     // grid.addWall(std::pair<COORDTYPE, COORDTYPE>(2, 2), std::pair<COORDTYPE, COORDTYPE>(4, 4));
     auto player = grid.addSnake(3, 1);
@@ -76,14 +78,20 @@ int main(int argc, char *argv[]) {
       grid.setNewRandomDirectionsExcept(0, true);
       grid.setDirection(0, brain0.selectDirection(grid));
       ending = grid.moveSnakes();
+      ++rounds;
     }
 
 	if(ending == 0) ++victories;
   std::cout << "Round " << game + 1 << " ended! Score: " << victories << "/" << game + 1 << std::endl;
+  roundsNbr.push_back(rounds);
 
   }
 
-  std::cout << victories << " victories for our snake!" << std::endl;
+  double meanRounds = 0;
+  for(auto rounds : roundsNbr) meanRounds += rounds;
+  meanRounds /= roundsNbr.size();
+
+  std::cout << victories << " victories for our snake for a mean number of rounds of " << meanRounds << "!" << std::endl;
 
   return 0;
 }

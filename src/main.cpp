@@ -11,7 +11,10 @@ int main(int argc, char *argv[]) {
 
     auto grid = Grid(10, 10);
     grid.addWall(std::pair<COORDTYPE, COORDTYPE>(2,2), std::pair<COORDTYPE,COORDTYPE>(4,4));
-    auto player = grid.addSnake(3, 1); grid.addSnake(3, 1);
+    auto player = grid.addSnake(3, 1);
+    grid.addSnake(3, 1);
+    grid.addSnake(3, 1);
+    grid.addSnake(3, 1);
 
     auto brain0 = BrainMCTS(player, grid);
 
@@ -68,6 +71,8 @@ int main(int argc, char *argv[]) {
       // grid.addWall(std::pair<COORDTYPE, COORDTYPE>(2, 2), std::pair<COORDTYPE, COORDTYPE>(4, 4));
       auto player = grid.addSnake(3, 1);
       grid.addSnake(3, 1);
+      grid.addSnake(3,1);
+      grid.addSnake(3,1);
 
       auto brain0 = BrainMCTS(player, grid);
 

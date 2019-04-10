@@ -278,11 +278,9 @@ COORDS Grid::getSize() const{
 
 int Grid::getIndex(const COORDTYPE x, const COORDTYPE y) const{
     return x*this->getWidth() + y;
-    /* Utiliser directement l'attribut plutôt que la fonction get ne serait il pas plus efficace ? */
 }
 
 State Grid::getCell(const COORDTYPE x, const COORDTYPE y) const{
-    // return this->cells.at(this->getIndex(x, y));
     return this->cells[this->getIndex(x, y)];
 }
 

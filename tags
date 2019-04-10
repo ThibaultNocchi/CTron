@@ -1,0 +1,114 @@
+BONUS	include/Definitions.hpp	14
+BrainMCTS	include/BrainMCTS.hpp	10
+BrainMCTS	src/BrainMCTS.cpp	/^BrainMCTS::BrainMCTS(const size_t index, const Gri/
+COORDS	include/Definitions.hpp	18
+COORDTYPE	include/Definitions.hpp	17
+DEFAULTHEIGHT	include/Definitions.hpp	5
+DEFAULTSNAKE	include/Definitions.hpp	7
+DEFAULTWIDTH	include/Definitions.hpp	4
+DOWN	include/Definitions.hpp	10
+Direction	include/Definitions.hpp	9
+EMPTY	include/Definitions.hpp	14
+Grid	include/Grid.hpp	11
+Grid	src/Grid.cpp	/^Grid::Grid(const COORDTYPE width, const COORDTYPE /
+Grid::rd	src/Grid.cpp	428
+HEAD	include/Definitions.hpp	14
+LEFT	include/Definitions.hpp	10
+MAX_MC_DEPTH	include/Definitions.hpp	24
+Mmain.cpp	src/main.cpp	/^int main(int argc, char *argv[]) {$/
+REWARD_DEFEAT	include/Definitions.hpp	21
+REWARD_DRAW	include/Definitions.hpp	20
+REWARD_VICTORY	include/Definitions.hpp	22
+RIGHT	include/Definitions.hpp	10
+SNAKE	include/Definitions.hpp	14
+Snake	include/Snake.hpp	6
+Snake	src/Snake.cpp	/^Snake::Snake(const COORDTYPE x, const COORDTYPE y,/
+State	include/Definitions.hpp	13
+UP	include/Definitions.hpp	10
+WALL	include/Definitions.hpp	14
+addSnake	src/Grid.cpp	/^size_t Grid::addSnake(const int length, const int /
+addWall	src/Grid.cpp	/^void Grid::addWall(const COORDS topLeft, const COO/
+adultLength	include/Snake.hpp	40
+alive	include/Snake.hpp	44
+aliveSnakes	include/Grid.hpp	58
+applyHash	src/Grid.cpp	/^void Grid::applyHash(const COORDTYPE x, const COOR/
+applySnakeHash	src/Grid.cpp	/^void Grid::applySnakeHash(const COORDTYPE x, const/
+baseLength	include/Snake.hpp	39
+body	include/Snake.hpp	42
+bonus	include/Grid.hpp	57
+cells	include/Grid.hpp	55
+countRolls	src/BrainMCTS.cpp	/^int BrainMCTS::countRolls(u_int64_t hash){$/
+currentHash	include/Grid.hpp	61
+decrementLives	src/Snake.cpp	/^void Snake::decrementLives(){$/
+dir	include/Snake.hpp	41
+displayBodyFromHeadToTail	src/Snake.cpp	/^void Snake::displayBodyFromHeadToTail() const{$/
+displayFromHash	src/BrainMCTS.cpp	/^void BrainMCTS::displayFromHash(u_int64_t hash){$/
+displayGridBasic	src/Grid.cpp	/^void Grid::displayGridBasic(){$/
+distr	include/Grid.hpp	64
+emptySnake	src/Snake.cpp	/^void Snake::emptySnake(){$/
+eng	include/Grid.hpp	63
+explore	src/BrainMCTS.cpp	/^int BrainMCTS::explore(Grid g){$/
+futureHead	include/Snake.hpp	43
+getAdultLength	src/Snake.cpp	/^int Snake::getAdultLength() const{$/
+getAlive	src/Snake.cpp	/^bool Snake::getAlive() const{$/
+getBaseLength	src/Snake.cpp	/^int Snake::getBaseLength() const{$/
+getBody	src/Snake.cpp	/^const std::deque<COORDS>& Snake::getBody() const{$/
+getBonus	src/Grid.cpp	/^const COORDS& Grid::getBonus() const{$/
+getCell	src/Grid.cpp	/^State Grid::getCell(const COORDTYPE x, const COORD/
+getCells	src/Grid.cpp	/^const std::vector<State>& Grid::getCells() const{$/
+getCurrentLength	src/Snake.cpp	/^int Snake::getCurrentLength() const{$/
+getDirection	src/Snake.cpp	/^Direction Snake::getDirection() const{$/
+getDirectionToExploreFrom	src/BrainMCTS.cpp	/^Direction BrainMCTS::getDirectionToExploreFrom(u_i/
+getFutureHead	src/Snake.cpp	/^COORDS Snake::getFutureHead() const{$/
+getHash	src/Grid.cpp	/^u_int64_t Grid::getHash() const{$/
+getHead	src/Snake.cpp	/^COORDS Snake::getHead() const{$/
+getHeight	src/Grid.cpp	/^COORDTYPE Grid::getHeight() const{$/
+getIndex	src/Grid.cpp	/^int Grid::getIndex(const COORDTYPE x, const COORDT/
+getLives	src/Snake.cpp	/^int Snake::getLives() const{$/
+getNumberAliveSnakes	src/Grid.cpp	/^int Grid::getNumberAliveSnakes() const{$/
+getRandomEmptyCell	src/Grid.cpp	/^COORDS Grid::getRandomEmptyCell() const{$/
+getSize	src/Grid.cpp	/^COORDS Grid::getSize() const{$/
+getSnakes	src/Grid.cpp	/^const std::vector<Snake>& Grid::getSnakes() const{/
+getTail	src/Snake.cpp	/^COORDS Snake::getTail() const{$/
+getWidth	src/Grid.cpp	/^COORDTYPE Grid::getWidth() const{$/
+hash	include/Grid.hpp	68
+hashes	include/Grid.hpp	59
+height	include/Grid.hpp	54
+incrementSize	src/Snake.cpp	/^void Snake::incrementSize(){$/
+initFromGrid	src/BrainMCTS.cpp	/^void BrainMCTS::initFromGrid(const Grid& g){$/
+initHash	src/Grid.cpp	/^void Grid::initHash(){$/
+killSnake	src/Grid.cpp	/^void Grid::killSnake(int index){$/
+lives	include/Snake.hpp	45
+mcts	include/BrainMCTS.hpp	30
+moveSnakes	src/Grid.cpp	/^int Grid::moveSnakes(){$/
+operator()	include/Grid.hpp	/^  size_t operator()(const Grid &g) const {$/
+operator<	src/Grid.cpp	/^bool Grid::operator<(const Grid& other) const{$/
+operator==	src/Grid.cpp	/^bool Grid::operator==(const Grid& other) const{$/
+putBonus	src/Grid.cpp	/^void Grid::putBonus(){$/
+rd	include/Grid.hpp	62
+removeTail	src/Snake.cpp	/^void Snake::removeTail(){$/
+resetGrid	src/Grid.cpp	/^void Grid::resetGrid(){$/
+resetSnake	src/Grid.cpp	/^void Grid::resetSnake(int index){$/
+rollout	src/BrainMCTS.cpp	/^int BrainMCTS::rollout(Grid& g){$/
+selectDirection	src/BrainMCTS.cpp	/^Direction BrainMCTS::selectDirection(const Grid& g/
+setAlive	src/Snake.cpp	/^void Snake::setAlive(const bool state){$/
+setCell	src/Grid.cpp	/^void Grid::setCell(const COORDTYPE x, const COORDT/
+setDirection	src/Grid.cpp	/^void Grid::setDirection(size_t index, Direction di/
+setDirection	src/Snake.cpp	/^void Snake::setDirection(const Direction direction/
+setFutureHead	src/Snake.cpp	/^void Snake::setFutureHead(const COORDS head){$/
+setHead	src/Snake.cpp	/^void Snake::setHead(const COORDS head){$/
+setLives	src/Snake.cpp	/^void Snake::setLives(const int lives){$/
+setNewHead	src/Snake.cpp	/^void Snake::setNewHead(){$/
+setNewRandomDirection	src/Snake.cpp	/^Direction Snake::setNewRandomDirection(){$/
+setNewRandomDirections	src/Grid.cpp	/^void Grid::setNewRandomDirections(){$/
+setNewRandomDirectionsExcept	src/Grid.cpp	/^void Grid::setNewRandomDirectionsExcept(size_t ind/
+setRandomDirection	src/Grid.cpp	/^Direction Grid::setRandomDirection(size_t index){$/
+setSnakeIndex	src/BrainMCTS.cpp	/^void BrainMCTS::setSnakeIndex(const size_t index){/
+snakeIndex	include/BrainMCTS.hpp	29
+snakes	include/Grid.hpp	56
+snakesHashes	include/Grid.hpp	60
+std	include/Grid.hpp	67
+std::unordered_map	include/BrainMCTS.hpp	30
+std::vector	include/Grid.hpp	60
+ucb	src/BrainMCTS.cpp	/^double BrainMCTS::ucb(double v, double ni, double /
+width	include/Grid.hpp	53

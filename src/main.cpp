@@ -34,14 +34,14 @@ int main(int argc, char *argv[]) {
 
 	while (window.isOpen()){
 
+		for(int i = 0; i < 100000; ++i){
+
 		/* Handling the (unique) possible event : in our case if the user closes the window, it closes */
 		sf::Event event;
 		while (window.pollEvent(event)){
 			if (event.type == sf::Event::Closed)
 				window.close();
 		}
-
-		for(int i = 0; i < 100000; ++i){
 
 			for(int j = 0; j < MC_ITERATIONS; ++j){
 				brain0.explore(grid);

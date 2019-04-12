@@ -99,7 +99,7 @@ int main(int argc, char *argv[]) {
 			window.display();
 			RecToDraw.clear();
 			CirclesToDraw.clear();
-			sleep(1);
+			usleep(333);
 			++rounds;
 
 		}

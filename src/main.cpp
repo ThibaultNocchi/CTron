@@ -22,8 +22,6 @@ int main(int argc, char *argv[]) {
 
 	auto brain0 = BrainMCTS(player, grid);
 
-	grid.displayGridBasic();
-
 	int ending;
 	double begin = omp_get_wtime();
 
@@ -99,10 +97,13 @@ int main(int argc, char *argv[]) {
 			window.display();
 			RecToDraw.clear();
 			CirclesToDraw.clear();
-			usleep(333);
+			usleep(100000);
 			++rounds;
 
 		}
+		printf("La partie est finie\n");
+		window.close();
+		break;
 	}
 
 	return 0;

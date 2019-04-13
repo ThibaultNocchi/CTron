@@ -109,10 +109,11 @@ int main(int argc, char *argv[]) {
 
 		}
 		nbVictories.at(ending) = nbVictories[ending]+1;
+		sleep(1);
 		}
 		window.close();
 		printf("La partie est finie\n");
-		for(size_t sn; sn < nbVictories.size(); sn+=1) printf("Le serpent %d a gagné %d parties.\n", sn+1, nbVictories[sn]);
+		for(size_t sn=0; sn < nbVictories.size(); sn+=1) printf("Le serpent %d a gagné %d parties.\n", sn+1, nbVictories[sn]);
 		break;
 	}
 

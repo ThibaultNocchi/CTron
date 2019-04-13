@@ -10,28 +10,34 @@ int main(int argc, char *argv[]) {
 
 	//  ============ MODE PARTIE CLASSIQUE =========================
 
+  /* Creating a window with a width of 800 px and 600 px */
 	sf::RenderWindow window(sf::VideoMode(600, 600), "CTron");
-	/* Creating a window with a width of 800 px and 600 px */
 
-	auto grid = Grid(10, 10);
-	grid.addWall(std::pair<COORDTYPE, COORDTYPE>(2,2),
-		           std::pair<COORDTYPE,COORDTYPE>(4,4)
-		    ); 
-	auto player = grid.addSnake(3, 1); 
-	grid.addSnake(3, 1);
-
-	auto brain0 = BrainMCTS(player, grid);
-
+	/* useful variables and arrays */
 	int ending;
-	double begin = omp_get_wtime();
-
 	int rounds = 0;
+	unsigned int nbGamesPlayed = 0;
+	const unsigned int NBGAMES = 10;
 
 	std::vector<sf::RectangleShape> RecToDraw;
 	std::vector<sf::CircleShape> CirclesToDraw;
+	std::vector<int> nbVictories;
+
+	nbVictories.push_back(0);
+	nbVictories.push_back(0);
+	nbVictories.push_back(0);
 
 	while (window.isOpen()){
+		for(nbGamesPlayed = 0; nbGamesPlayed < NBGAMES; ++nbGamesPlayed){
+					auto grid = Grid(10, 10);
+					grid.addWall(std::pair<COORDTYPE, COORDTYPE>(2,2),
+											 std::pair<COORDTYPE,COORDTYPE>(4,4)
+								); 
+					auto player = grid.addSnake(3, 1); 
+					grid.addSnake(3, 1);
+					grid.addSnake(3, 1);
 
+					auto brain0 = BrainMCTS(player, grid);
 		for(int i = 0; i < 100000; ++i){
 
 		/* Handling the (unique) possible event : in our case if the user closes the window, it closes */
@@ -41,6 +47,7 @@ int main(int argc, char *argv[]) {
 				window.close();
 		}
 
+		/* Giving the directions to differents snakes */
 			for(int j = 0; j < MC_ITERATIONS; ++j){
 				brain0.explore(grid);
 			}
@@ -101,8 +108,11 @@ int main(int argc, char *argv[]) {
 			++rounds;
 
 		}
-		printf("La partie est finie\n");
+		nbVictories.at(ending) = nbVictories[ending]+1;
+		}
 		window.close();
+		printf("La partie est finie\n");
+		for(size_t sn; sn < nbVictories.size(); sn+=1) printf("Le serpent %d a gagné %d parties.\n", sn+1, nbVictories[sn]);
 		break;
 	}
 

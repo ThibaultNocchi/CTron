@@ -5,15 +5,23 @@
 #include <omp.h>
 #include <unistd.h>
 #include <SFML/Graphics.hpp>
+#include <sstream>
 
 int main(int argc, char *argv[]) {
 
 	//  ============ MODE PARTIE CLASSIQUE =========================
 
   /* Creating a window with a width of 800 px and 600 px */
-	sf::RenderWindow window(sf::VideoMode(600, 600), "CTron");
+	sf::RenderWindow window(sf::VideoMode(1000, 600), "CTron");
 
 	/* useful variables and arrays */
+
+	/* Loading a font */
+	sf::Font font;
+	if (!font.loadFromFile("LiberationSerif-Regular.ttf")){
+					printf("Erreur de chargement de la police d'écriture\n");
+					exit(1);
+	}
 	int ending;
 	int rounds = 0;
 	unsigned int nbGamesPlayed = 0;
@@ -22,10 +30,21 @@ int main(int argc, char *argv[]) {
 	std::vector<sf::RectangleShape> RecToDraw;
 	std::vector<sf::CircleShape> CirclesToDraw;
 	std::vector<int> nbVictories;
+	nbVictories.push_back(0);
+	nbVictories.push_back(0);
+	nbVictories.push_back(0);
 
-	nbVictories.push_back(0);
-	nbVictories.push_back(0);
-	nbVictories.push_back(0);
+	/* Creation of the three texts */
+	std::vector<sf::Text> vText;
+	for(size_t i=0; i<3; i+=1){
+					sf::Text t;
+					t.setFont(font);
+					t.setFillColor(sf::Color::Black);
+					vText.push_back(t);
+	}
+	vText.at(0).setPosition(sf::Vector2f(602.f, 0.f));
+	vText.at(1).setPosition(sf::Vector2f(602.f, 30.f));
+	vText.at(2).setPosition(sf::Vector2f(602.f, 60.f));
 
 	while (window.isOpen()){
 		for(nbGamesPlayed = 0; nbGamesPlayed < NBGAMES; ++nbGamesPlayed){
@@ -97,10 +116,16 @@ int main(int argc, char *argv[]) {
 					}
 				}
 			}
+			for(size_t t=0; t<3; t++){
+							std::stringstream ss;
+							ss << "Le serpent #" << t << " a " << nbVictories[t] << " victoires.";
+							vText[t].setString(ss.str());
+			}
 
 			/* On dessine tout; on affiche; on vide les vecteurs; on attend une second et on repart */
 			for(size_t i=0; i < RecToDraw.size(); i+=1) window.draw(RecToDraw[i]);
 			for(size_t i=0; i < CirclesToDraw.size(); i+=1) window.draw(CirclesToDraw[i]);
+			for(size_t i=0; i < vText.size(); i+=1) window.draw(vText[i]);
 			window.display();
 			RecToDraw.clear();
 			CirclesToDraw.clear();
@@ -113,7 +138,7 @@ int main(int argc, char *argv[]) {
 		}
 		window.close();
 		printf("La partie est finie\n");
-		for(size_t sn=0; sn < nbVictories.size(); sn+=1) printf("Le serpent %d a gagné %d parties.\n", sn+1, nbVictories[sn]);
+		for(unsigned int sn=0; sn < nbVictories.size(); sn+=1) printf("Le serpent %u a gagné %d parties.\n", sn+1, nbVictories[sn]);
 		break;
 	}
 

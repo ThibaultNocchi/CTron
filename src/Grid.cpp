@@ -297,7 +297,6 @@ int Grid::getIndex(const COORDTYPE x, const COORDTYPE y) const{
 }
 
 State Grid::getCell(const COORDTYPE x, const COORDTYPE y) const{
-    // return this->cells.at(this->getIndex(x, y));
     return this->cells[this->getIndex(x, y)];
 }
 
@@ -331,7 +330,6 @@ u_int64_t Grid::getHash() const{
 }
 
 void Grid::setCell(const COORDTYPE x, const COORDTYPE y, State value, size_t snakeID){
-    // this->cells.at(this->getIndex(x, y)) = value;
     State old = this->getCell(x, y);
     this->cells[this->getIndex(x, y)] = value;
     if(old == EMPTY || old == WALL || old == BONUS){

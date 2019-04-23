@@ -53,6 +53,7 @@ class Grid{
 	private:
 		COORDTYPE width;
 		COORDTYPE height;
+		std::vector<std::vector<int>> indexes;
 		std::vector<State> cells;
 		std::vector<Snake> snakes;
 		COORDS bonus;

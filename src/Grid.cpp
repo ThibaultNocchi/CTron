@@ -364,13 +364,13 @@ Direction Grid::setRandomDirection(size_t index, bool noStupidMove){
 
 void Grid::setNewRandomDirections(bool noStupidMove){
     for(size_t i = 0; i < this->snakes.size(); ++i){
-        this->setRandomDirection(i, noStupidMove);
+        if(this->snakes[i].getAlive()) this->setRandomDirection(i, noStupidMove);
     }
 }
 
 void Grid::setNewRandomDirectionsExcept(size_t index, bool noStupidMove){
     for(size_t i = 0; i < this->snakes.size(); ++i){
-        if(i != index) this->setRandomDirection(i, noStupidMove);
+        if(i != index && this->snakes[i].getAlive()) this->setRandomDirection(i, noStupidMove);
     }
 }
 

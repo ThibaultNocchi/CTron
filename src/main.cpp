@@ -49,9 +49,7 @@ int main(int argc, char *argv[]) {
 	while (window.isOpen()){
 		for(nbGamesPlayed = 0; nbGamesPlayed < NBGAMES; ++nbGamesPlayed){
 					auto grid = Grid(10, 10);
-					grid.addWall(std::pair<COORDTYPE, COORDTYPE>(2,2),
-											 std::pair<COORDTYPE,COORDTYPE>(4,4)
-								); 
+					// grid.addWall(std::pair<COORDTYPE, COORDTYPE>(2,2), std::pair<COORDTYPE,COORDTYPE>(4,4)); 
 					auto player = grid.addSnake(3, 1); 
 					grid.addSnake(3, 1);
 					grid.addSnake(3, 1);
@@ -70,7 +68,7 @@ int main(int argc, char *argv[]) {
 			for(int j = 0; j < MC_ITERATIONS; ++j){
 				brain0.explore(grid);
 			}
-			grid.setNewRandomDirectionsExcept(0);
+			grid.setNewRandomDirectionsExcept(0, true);
 			grid.setDirection(0, brain0.selectDirection(grid));
 			ending = grid.moveSnakes();
 			if(ending >= -1) break;

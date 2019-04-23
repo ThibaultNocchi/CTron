@@ -52,50 +52,17 @@ int Grid::moveSnakes(){
     // Calculating future new head, and removing the end of the tail if needed.
     for(size_t i = 0; i < this->snakes.size(); ++i){
         
-        COORDS head = this->snakes[i].getHead();
+        if(this->snakes[i].getAlive()){
 
-        switch(this->snakes[i].getDirection()){
-            case DOWN:
-                if(head.first == this->getHeight() - 1){
-                    head.first = 0;
-                }else{
-                    head.first += 1;
-                }
-                break;
-            
-            case UP:
-                if(head.first == 0){
-                    head.first = this->getHeight() - 1;
-                }else{
-                    head.first -= 1;
-                }
-                break;
+            COORDS head = this->calculateFutureHead(i);
 
-            case LEFT:
-                if(head.second == 0){
-                    head.second = this->getWidth() - 1;
-                }else{
-                    head.second -= 1;
-                }
-                break;
+            this->snakes[i].setFutureHead(head);
+            if(this->snakes[i].getCurrentLength() == this->snakes[i].getAdultLength()){
+                COORDS tail = this->snakes[i].getTail();
+                this->setCell(tail.first, tail.second, EMPTY, i);
+                this->snakes[i].removeTail();
+            }
 
-            case RIGHT:
-                if(head.second == this->getWidth() - 1){
-                    head.second = 0;
-                }else{
-                    head.second += 1;
-                }
-                break;
-        
-            default:
-                break;
-        }
-
-        this->snakes[i].setFutureHead(head);
-        if(this->snakes[i].getCurrentLength() == this->snakes[i].getAdultLength()){
-            COORDS tail = this->snakes[i].getTail();
-            this->setCell(tail.first, tail.second, EMPTY, i);
-            this->snakes[i].removeTail();
         }
 
     }
@@ -113,10 +80,12 @@ int Grid::moveSnakes(){
             }else if(cellValue == EMPTY){
 
                 for(size_t j = (i+1); j < this->snakes.size(); ++j){
-                    COORDS newHead2 = this->snakes[j].getFutureHead();
-                    if(newHead.first == newHead2.first && newHead.second == newHead2.second){
-                        this->killSnake(i);
-                        this->killSnake(j);
+                    if(this->snakes[j].getAlive()){
+                        COORDS newHead2 = this->snakes[j].getFutureHead();
+                        if(newHead.first == newHead2.first && newHead.second == newHead2.second){
+                            this->killSnake(i);
+                            this->killSnake(j);
+                        }
                     }
                 }
 
@@ -180,10 +149,53 @@ void Grid::resetSnake(int index){
 }
 
 void Grid::killSnake(int index){
-  this->snakes[index].setAlive(false);
-  this->resetSnake(index);
-  this->snakes[index].decrementLives();
-  --this->aliveSnakes;
+    this->snakes[index].setAlive(false);
+    this->resetSnake(index);
+    this->snakes[index].decrementLives();
+    --this->aliveSnakes;
+}
+
+COORDS Grid::calculateFutureHead(size_t index){
+
+  COORDS head = this->snakes[index].getHead();
+  switch (this->snakes[index].getDirection()) {
+  case DOWN:
+    if (head.first == this->getHeight() - 1) {
+      head.first = 0;
+    } else {
+      head.first += 1;
+    }
+    break;
+
+  case UP:
+    if (head.first == 0) {
+      head.first = this->getHeight() - 1;
+    } else {
+      head.first -= 1;
+    }
+    break;
+
+  case LEFT:
+    if (head.second == 0) {
+      head.second = this->getWidth() - 1;
+    } else {
+      head.second -= 1;
+    }
+    break;
+
+  case RIGHT:
+    if (head.second == this->getWidth() - 1) {
+      head.second = 0;
+    } else {
+      head.second += 1;
+    }
+    break;
+
+  default:
+    break;
+  }
+
+  return head;
 }
 
 void Grid::addWall(const COORDS topLeft, const COORDS bottomRight){
@@ -240,7 +252,10 @@ void Grid::displayGridBasic(){
                 }
 
                 case HEAD:
-                    std::cout << "H";
+                    if(this->snakes[0].getHead().first == x && this->snakes[0].getHead().second == y)
+                        std::cout << "T";
+                    else
+                        std::cout << "H";
                     break;
 
 
@@ -333,19 +348,29 @@ void Grid::setDirection(size_t index, Direction dir){
     this->snakes[index].setDirection(dir);
 }
 
-Direction Grid::setRandomDirection(size_t index){
-    return this->snakes[index].setNewRandomDirection();
+Direction Grid::setRandomDirection(size_t index, bool noStupidMove){
+    if(!noStupidMove) return this->snakes[index].setNewRandomDirection();
+    Direction dir;
+    COORDS head;
+    State cell;
+    int i = 0;
+    do{
+        dir = this->snakes[index].setNewRandomDirection();
+        head = this->calculateFutureHead(index);
+        cell = this->getCell(head.first, head.second);
+    }while(cell != EMPTY && i++ < 3);
+    return dir;
 }
 
-void Grid::setNewRandomDirections(){
+void Grid::setNewRandomDirections(bool noStupidMove){
     for(size_t i = 0; i < this->snakes.size(); ++i){
-        this->snakes[i].setNewRandomDirection();
+        this->setRandomDirection(i, noStupidMove);
     }
 }
 
-void Grid::setNewRandomDirectionsExcept(size_t index){
+void Grid::setNewRandomDirectionsExcept(size_t index, bool noStupidMove){
     for(size_t i = 0; i < this->snakes.size(); ++i){
-        if(i != index) this->snakes[i].setNewRandomDirection();
+        if(i != index) this->setRandomDirection(i, noStupidMove);
     }
 }
 

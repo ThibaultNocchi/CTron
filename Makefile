@@ -16,10 +16,12 @@ MAINFILE = main
 
 EXEC_NAME = CTron
 
+GAMES_TO_RUN = 5
+
 all: $(BINDIR)/$(EXEC_NAME)
 
 run: $(BINDIR)/$(EXEC_NAME)
-	@$(BINDIR)/./$(EXEC_NAME)
+	@$(BINDIR)/./$(EXEC_NAME) $(GAMES_TO_RUN)
 
 %Test: $(ODIR)/%Test.o $(OBJFILES)
 	mkdir -p $(BINDIR)/$(TESTDIR)

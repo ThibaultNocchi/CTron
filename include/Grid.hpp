@@ -17,6 +17,7 @@ class Grid{
 		void resetGrid();
 		void resetSnake(int index);
 		void killSnake(int index);
+		COORDS calculateFutureHead(size_t index);
 
 		void addWall(const COORDS topLeft, const COORDS bottomRight);
 
@@ -42,9 +43,9 @@ class Grid{
 
 		void setCell(const COORDTYPE x, const COORDTYPE y, State value, size_t snakeID = 0);
 		void setDirection(size_t index, Direction dir);
-		Direction setRandomDirection(size_t index);
-		void setNewRandomDirections();
-		void setNewRandomDirectionsExcept(size_t index);
+		Direction setRandomDirection(size_t index, bool noStupidMove);
+		void setNewRandomDirections(bool noStupidMove);
+		void setNewRandomDirectionsExcept(size_t index, bool noStupidMove);
 
 		bool operator<(const Grid& other) const;
 		bool operator==(const Grid& other) const;
@@ -63,13 +64,3 @@ class Grid{
 		static std::mt19937_64 eng;
 		static std::uniform_int_distribution<u_int64_t> distr;
 };
-
-namespace std {
-template <> class hash<Grid> {
-public:
-  size_t operator()(const Grid &g) const {
-      return 1;
-    }
-};
-
-}

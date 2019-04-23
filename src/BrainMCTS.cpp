@@ -64,7 +64,8 @@ int BrainMCTS::rollout(Grid& g){
     int ending = -2;
 
     while(ending == -2){
-        g.setNewRandomDirections();
+        g.setNewRandomDirectionsExcept(this->snakeIndex, true);
+        g.setRandomDirection(this->snakeIndex, false);
         ending = g.moveSnakes();
     }
 
@@ -75,8 +76,9 @@ int BrainMCTS::rollout(Grid& g){
     else if(ending >= 0){ value = REWARD_DEFEAT; } // Another snake won
     else{
         Snake mySnake = g.getSnakes()[this->snakeIndex];
-        value = mySnake.getCurrentLength() - mySnake.getBaseLength(); // Reward is the number of extra tails.
-        value *= 2; // Twice
+        value = REWARD_BONUS(mySnake.getCurrentLength() - mySnake.getBaseLength()); // Reward is function of the number of extra tails.
+        value += REWARD_KILLS(g.getSnakes().size() - g.getNumberAliveSnakes()); // Plus a function of killed snakes.
+        value += REWARD_ROUND; // Plus a (negative) reward for not ending the game this round.
     } // Game not over.
 
     return value;
@@ -111,7 +113,7 @@ int BrainMCTS::explore(Grid g){
     int i = 0;
 
     while(this->mcts[current][toExplore].second != 0 && i++ < MAX_MC_DEPTH){
-        g.setNewRandomDirectionsExcept(this->snakeIndex);
+        g.setNewRandomDirectionsExcept(this->snakeIndex, true);
         g.setDirection(this->snakeIndex, toExplore);
         g.moveSnakes();
         current = g.getHash();

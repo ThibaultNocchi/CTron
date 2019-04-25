@@ -104,8 +104,10 @@ int main(int argc, char *argv[]) {
             } else if (s == HEAD || s == SNAKE) {
               sf::RectangleShape shape;
               shape = sf::RectangleShape(sf::Vector2f(45.f, 45.f));
-              if (s == HEAD)
-                shape.rotate(45.f);
+              if (s == HEAD){
+											shape.setOutlineColor(sf::Color::Black);
+											shape.setOutlineThickness(4.f);
+							}
               shape.setPosition(sf::Vector2f(i * 50.f, j * 50.f));
 
               auto snakes = grid.getSnakes();
@@ -156,7 +158,7 @@ int main(int argc, char *argv[]) {
         ++rounds;
       }
       nbVictories.at(ending) = nbVictories[ending] + 1;
-      sleep(1);
+      sleep(2);
     }
     window.close();
     printf("La partie est finie\n");

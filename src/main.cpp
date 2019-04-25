@@ -45,12 +45,16 @@ int main(int argc, char *argv[]) {
   for (size_t i = 0; i < 3; i += 1) {
     sf::Text t;
     t.setFont(font);
-    t.setFillColor(sf::Color::Black);
     vText.push_back(t);
   }
   vText.at(0).setPosition(sf::Vector2f(602.f, 0.f));
+	vText.at(0).setFillColor(sf::Color::Blue);
   vText.at(1).setPosition(sf::Vector2f(602.f, 30.f));
+	vText.at(1).setFillColor(sf::Color::Green);
   vText.at(2).setPosition(sf::Vector2f(602.f, 60.f));
+	vText.at(2).setFillColor(sf::Color::Yellow);
+	vText.at(2).setOutlineColor(sf::Color::Black);
+	vText.at(2).setOutlineThickness(2.f);
 
   while (window.isOpen()) {
     for (nbGamesPlayed = 0; nbGamesPlayed < NBGAMES; ++nbGamesPlayed) {

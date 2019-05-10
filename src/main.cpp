@@ -59,11 +59,14 @@ int main(int argc, char *argv[]) {
   while (window.isOpen()) {
     for (nbGamesPlayed = 0; nbGamesPlayed < NBGAMES; ++nbGamesPlayed) {
       auto grid = Grid(10, 10);
-      // grid.addWall(std::pair<COORDTYPE, COORDTYPE>(2,2),
-      // std::pair<COORDTYPE,COORDTYPE>(4,4));
       auto player = grid.addSnake(3, 1);
       grid.addSnake(3, 1);
       grid.addSnake(3, 1);
+
+			/* Creation of a background rectangle */
+			sf::RectangleShape background(sf::Vector2f(45.0*(1+grid.getWidth()),45.0*(1+grid.getHeight())));
+			background.setPosition(0.f, 0.f);
+			background.setFillColor(sf::Color::White);
 
       auto brain0 = BrainMCTS(player, grid);
       for (int i = 0; i < 100000; ++i) {
@@ -87,7 +90,8 @@ int main(int argc, char *argv[]) {
           break;
 
         // GUI
-        window.clear(sf::Color::White);
+        window.clear(sf::Color(188, 188, 188));
+				window.draw(background);
         for (COORDTYPE i = 0; i < grid.getWidth(); i += 1) {
           for (COORDTYPE j = 0; j < grid.getHeight(); j += 1) {
             State s = grid.getCell(i, j);
